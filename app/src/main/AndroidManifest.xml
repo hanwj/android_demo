@@ -22,6 +22,8 @@
         <activity android:name=".TestActivity"></activity>
         <activity android:name=".eventbus.EventBusActivity"></activity>
         <activity android:name=".service.ServiceActivity"></activity>
+        <activity android:name=".testkeyboard.TestKeyBoardActivity"></activity>
+        <activity android:name=".ListViewInScrollActivity"/>
 
         <service android:name=".service.LocalService"></service>
         <service android:name=".service.ForegroundService"></service>

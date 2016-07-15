@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.xiaoxiao.testrxjava.service.ServiceActivity;
+import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,8 @@ public class MainActivity extends FragmentActivity {
             put("toolbar",ToolbarActivity.class);
             put("anim",TestActivity.class);
             put("service", ServiceActivity.class);
+            put("input", TestKeyBoardActivity.class);
+            put("listview", ListViewInScrollActivity.class);
         }
     };
     @Override

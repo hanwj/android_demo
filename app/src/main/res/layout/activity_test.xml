@@ -39,4 +39,47 @@
         android:textSize="15sp"
         android:textColor="@android:color/black"
         android:text="animation"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/scroll1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="scroll1"/>
+        <Button
+            android:id="@+id/scroll2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="scroll2"/>
+        <Button
+            android:id="@+id/scroll3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="reset"/>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/test_scroll_text"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@mipmap/temp_singer_photo"
+            android:textSize="100sp"
+            android:textColor="@android:color/holo_red_dark"
+            android:text="1232432432431431243132143"/>
+        <View
+            android:id="@+id/test_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            android:background="@android:color/holo_red_dark"
+            android:visibility="gone"/>
+    </FrameLayout>
+
 </LinearLayout>
