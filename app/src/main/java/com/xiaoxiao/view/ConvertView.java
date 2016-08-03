@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.SurfaceView;
 import android.view.View;
 
 import com.xiaoxiao.testrxjava.R;
@@ -61,4 +62,5 @@ public class ConvertView extends View implements View.OnClickListener{
         mCount ++;
         invalidate();
     }
+
 }

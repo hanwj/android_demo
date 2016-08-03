@@ -3,4 +3,9 @@
     <declare-styleable name="ConvertView">
         <attr name="textSize" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="MyCircleView">
+        <attr name="cvRadius" format="dimension"/>
+        <attr name="cvColor" format="color"/>
+    </declare-styleable>
 </resources>

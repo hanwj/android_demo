@@ -25,6 +25,7 @@ public class MainActivity extends FragmentActivity {
             put("service", ServiceActivity.class);
             put("input", TestKeyBoardActivity.class);
             put("listview", ListViewInScrollActivity.class);
+            put("surfaceview", SurfaceViewActivity.class);
         }
     };
     @Override

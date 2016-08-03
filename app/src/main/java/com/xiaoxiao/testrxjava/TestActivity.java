@@ -1,13 +1,23 @@
 package com.xiaoxiao.testrxjava;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.xiaoxiao.view.MyCircleView;
+import com.xiaoxiao.view.VerticalCenterImageSpan;
 
 /**
  * Created by meibo-design on 17/5/16.
@@ -49,6 +59,23 @@ public class TestActivity extends FragmentActivity {
         scroll1.setOnClickListener(listener);
         scroll2.setOnClickListener(listener);
         scroll3.setOnClickListener(listener);
+
+
+        TextView richText = (TextView)findViewById(R.id.rich_text);
+        Spannable span1 = new SpannableString("测试测试");
+        Spannable span2 = new SpannableString("图片");
+        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        ImageSpan imageSpan = new VerticalCenterImageSpan(drawable);
+        span2.setSpan(imageSpan, 0, span2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(span1).append(span2);
+        richText.setText(builder);
+
+        MyCircleView circleView = (MyCircleView) findViewById(R.id.test_circle);
+        circleView.setRadius(90);
+        circleView.setColor(Color.BLUE);
     }
 
 }
