@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.xiaoxiao.testrxjava.service.ServiceActivity;
+import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
 import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
 
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class MainActivity extends FragmentActivity {
             put("listview", ListViewInScrollActivity.class);
             put("surfaceview", SurfaceViewActivity.class);
             put("canvas",CanvasViewActivity.class);
+            put("pagerSlidingTabStrip",PagerSlidingTabActivity.class);
         }
     };
     @Override

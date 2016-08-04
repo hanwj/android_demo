@@ -26,6 +26,7 @@
         <activity android:name=".ListViewInScrollActivity"/>
         <activity android:name=".SurfaceViewActivity"/>
         <activity android:name=".CanvasViewActivity"/>
+        <activity android:name=".simplePagerTab.PagerSlidingTabActivity"/>
 
         <service android:name=".service.LocalService"></service>
         <service android:name=".service.ForegroundService"></service>
