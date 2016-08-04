@@ -55,33 +55,37 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     class MyThread extends Thread{
         private SurfaceHolder holder;
         private boolean isRun = false;
+        Paint p;
         public MyThread(SurfaceHolder holder){
             this.holder = holder;
             isRun = true;
+            p = new Paint();
+            p.setTextSize(20);
+            p.setColor(Color.WHITE);
+
         }
 
         @Override
         public void run() {
             int count = 0;
+            long lastTime = -1;
+            Canvas c;
+//            c = holder.lockCanvas();   //锁定画布，一般在锁定后就可以通过其返回的画布对象Canvas,在其上面画图等操作
+//            c.drawColor(Color.BLACK);  //设置画布背景色
+//            c.drawRect(new Rect(100, 50, 300, 250), p);
+//            c.drawText("这是第" + count + "秒",100,310,p);
+//            holder.unlockCanvasAndPost(c);
+
             while(isRun){
-                Canvas c = null;
-                try{
-                    synchronized (holder){
-                        c = holder.lockCanvas(); //锁定画布，一般在锁定后就可以通过其返回的画布对象Canvas,在其上面画图等操作
-                        c.drawColor(Color.BLACK); //设置画布背景色
-                        Paint p = new Paint();
-                        p.setTextSize(20);
-                        p.setColor(Color.WHITE); //设置画笔颜色
-                        Rect rect = new Rect(100,50,300,250);
-                        c.drawRect(rect, p);
+                synchronized (holder){
+                    long curTime = System.currentTimeMillis();
+                    if (curTime - lastTime >= 1000){
+                        c = holder.lockCanvas();//锁定画布，一般在锁定后就可以通过其返回的画布对象Canvas,在其上面画图等操作
+                        c.drawColor(Color.BLACK);  //设置画布背景色
+                        c.drawRect(new Rect(100, 50, 300, 250), p);
                         c.drawText("这是第" + (count++) + "秒", 100, 310, p);
-                        Thread.sleep(1000);
-                    }
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }finally {
-                    if (c != null){
-                        holder.unlockCanvasAndPost(c); //结束锁定画布，并提交改变
+                        lastTime = curTime;
+                        holder.unlockCanvasAndPost(c);
                     }
                 }
 
