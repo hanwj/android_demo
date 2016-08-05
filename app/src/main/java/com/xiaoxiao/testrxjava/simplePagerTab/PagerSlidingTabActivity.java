@@ -20,6 +20,7 @@ public class PagerSlidingTabActivity extends FragmentActivity{
     private ViewPager mPager;
     private PagerSlidingTabStrip mPagerTab;
     private List<Fragment> mFrags;
+    private String[] mPagerTitles = {"测试1 正 常","测试2短","测试3长长长长长","测4"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +28,13 @@ public class PagerSlidingTabActivity extends FragmentActivity{
         mPager = (ViewPager)findViewById(R.id.act_pager);
         mPagerTab = (PagerSlidingTabStrip)findViewById(R.id.act_pager_tab);
 
+        int count = mPagerTitles.length;
         mFrags = new ArrayList<>();
-        for (int i = 0;i < 4;i++){
-            mFrags.add(new SimpleFragment().setIndex(i + 1));
+        for (int i = 0;i < count;i++){
+            mFrags.add(new SimpleFragment().setIndex(i));
         }
+
+        mPager.setOffscreenPageLimit(mFrags.size());
         mPager.setAdapter(new SimpleViewPagerAdapter(getSupportFragmentManager()));
         mPagerTab.setViewPager(mPager);
     }
@@ -53,7 +57,8 @@ public class PagerSlidingTabActivity extends FragmentActivity{
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return ((SimpleFragment)mFrags.get(position)).getTitle();
+//            return ((SimpleFragment)mFrags.get(position)).getTitle();
+            return mPagerTitles[position];
         }
     }
 

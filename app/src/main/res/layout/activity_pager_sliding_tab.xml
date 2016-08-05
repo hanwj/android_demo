@@ -5,7 +5,7 @@
     <com.xiaoxiao.view.PagerSlidingTabStrip
         android:id="@+id/act_pager_tab"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:background="#fafafa">
 
     </com.xiaoxiao.view.PagerSlidingTabStrip>
