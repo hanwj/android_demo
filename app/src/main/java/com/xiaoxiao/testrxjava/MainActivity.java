@@ -29,6 +29,8 @@ public class MainActivity extends FragmentActivity {
             put("surfaceview", SurfaceViewActivity.class);
             put("canvas",CanvasViewActivity.class);
             put("pagerSlidingTabStrip",PagerSlidingTabActivity.class);
+            put("framelayout",FrameLayoutActivity.class);
+            put("volley",VolleyActivity.class);
         }
     };
     @Override

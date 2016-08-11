@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xiaoxiao.testrxjava">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,6 +29,8 @@
         <activity android:name=".SurfaceViewActivity"/>
         <activity android:name=".CanvasViewActivity"/>
         <activity android:name=".simplePagerTab.PagerSlidingTabActivity"/>
+        <activity android:name=".FrameLayoutActivity"/>
+        <activity android:name=".VolleyActivity"/>
 
         <service android:name=".service.LocalService"></service>
         <service android:name=".service.ForegroundService"></service>

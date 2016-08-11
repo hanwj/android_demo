@@ -7,7 +7,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.functions.Func1;
-
 public class RxMain {
     public static void main(String[] args){
         Observable<String> myObservable = Observable.create(new Observable.OnSubscribe<String>() {
@@ -122,5 +121,4 @@ public class RxMain {
         });
 
     }
-
 }
