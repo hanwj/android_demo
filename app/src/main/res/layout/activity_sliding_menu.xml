@@ -42,12 +42,19 @@
             <!-- 正文-->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/sliding_menu_content"/>
+                android:layout_height="match_parent"
+                android:background="@android:color/holo_green_light">
+                <!--<ImageView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:src="@mipmap/sliding_menu_content"/>-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="30sp"
+                    android:text="我就是正文"/>
             </FrameLayout>
 
         </LinearLayout>
