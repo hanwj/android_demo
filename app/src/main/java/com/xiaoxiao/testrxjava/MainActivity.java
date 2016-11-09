@@ -31,6 +31,8 @@ public class MainActivity extends FragmentActivity {
             put("pagerSlidingTabStrip",PagerSlidingTabActivity.class);
             put("framelayout",FrameLayoutActivity.class);
             put("volley",VolleyActivity.class);
+            put("testmix",TestMixActivity.class);
+            put("slidingmenu",SlidingMenuActivity.class);
         }
     };
     @Override

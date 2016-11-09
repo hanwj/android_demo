@@ -31,6 +31,8 @@
         <activity android:name=".simplePagerTab.PagerSlidingTabActivity"/>
         <activity android:name=".FrameLayoutActivity"/>
         <activity android:name=".VolleyActivity"/>
+        <activity android:name=".TestMixActivity"/>
+        <activity android:name=".SlidingMenuActivity"/>
 
         <service android:name=".service.LocalService"></service>
         <service android:name=".service.ForegroundService"></service>

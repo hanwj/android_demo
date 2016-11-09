@@ -8,4 +8,8 @@
         <attr name="cvRadius" format="dimension"/>
         <attr name="cvColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="SlidingMenu">
+        <attr name="menuOpen" format="boolean"/>
+    </declare-styleable>
 </resources>
