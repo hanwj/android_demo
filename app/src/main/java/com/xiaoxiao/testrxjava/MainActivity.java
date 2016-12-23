@@ -3,6 +3,7 @@ package com.xiaoxiao.testrxjava;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,10 +19,11 @@ import java.util.Map;
 /**
  * Created by caixiaoxiao on 27/5/16.
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
     private Map<String,Class<?>> funcMap = new HashMap<String,Class<?>>(){
         {
             put("toolbar",ToolbarActivity.class);
+            put("actionbar",ActionBarActivity.class);
             put("anim",TestActivity.class);
             put("service", ServiceActivity.class);
             put("input", TestKeyBoardActivity.class);
