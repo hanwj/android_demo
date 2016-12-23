@@ -2,13 +2,13 @@ package com.xiaoxiao.testrxjava;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.xiaoxiao.testrxjava.actionBar.ActionBarActivity;
 import com.xiaoxiao.testrxjava.service.ServiceActivity;
 import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
 import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;

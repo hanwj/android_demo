@@ -1,10 +1,13 @@
-package com.xiaoxiao.testrxjava;
+package com.xiaoxiao.testrxjava.actionBar;
 
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
+
+import com.xiaoxiao.testrxjava.R;
 
 /**
  * Created by caixiaoxiao on 23/12/16.
@@ -25,5 +28,12 @@ public class ActionBarActivity extends FragmentActivity{
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setListNavigationCallbacks(mSpinnerAdapter, mOnNavigationListener);
         setContentView(R.layout.activity_action_bar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_bar_options,menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 }
