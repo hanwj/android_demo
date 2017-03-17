@@ -3,10 +3,17 @@ package com.rxjava;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.functions.Consumer;
 import rx.Observable;
+import rx.Observer;
+import rx.Scheduler;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
 public class RxMain {
     public static void main(String[] args){
         Observable<String> myObservable = Observable.create(new Observable.OnSubscribe<String>() {
@@ -119,6 +126,57 @@ public class RxMain {
                 System.out.println(s + " 123");
             }
         });
+    }
 
+    private static void testRxjava2(){
+        Flowable.just("hello,rxjava2").subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                System.out.println(s);
+            }
+        });
+    }
+
+    private static void testRxJava(){
+        Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                //todo 通知观察者有变化
+                subscriber.onNext("123");
+                subscriber.onCompleted();
+            }
+        });
+
+        Observer<String> observer = new Observer<String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(String s) {
+                //todo 如何处理接收到的事件
+                System.out.print("s:" + s);
+            }
+        };
+        Subscription subscription = observable.subscribe(observer);
+
+        Observable<String> observable1 = Observable.just("hello", "cai", "xiaoxiao");
+
+        String[] names = {"hello","cai","xiaoxiao"};
+        Observable.from(names).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                System.out.print(s);
+            }
+        });
+
+        observable.subscribeOn(Schedulers.io()).observeOn(Schedulers.computation());
+        
     }
 }

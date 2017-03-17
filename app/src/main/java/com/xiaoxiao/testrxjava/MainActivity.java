@@ -1,14 +1,21 @@
 package com.xiaoxiao.testrxjava;
 
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.xiaoxiao.testrxjava.actionBar.ActionBarActivity;
+import com.xiaoxiao.testrxjava.dagger2.DaggerMainActivityComponent;
+import com.xiaoxiao.testrxjava.dagger2.User;
 import com.xiaoxiao.testrxjava.service.ServiceActivity;
 import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
 import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
@@ -16,10 +23,15 @@ import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
+
 /**
  * Created by caixiaoxiao on 27/5/16.
  */
 public class MainActivity extends AppCompatActivity {
+    @Inject
+    User user;
     private Map<String,Class<?>> funcMap = new HashMap<String,Class<?>>(){
         {
             put("toolbar",ToolbarActivity.class);
@@ -35,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
             put("volley",VolleyActivity.class);
             put("testmix",TestMixActivity.class);
             put("slidingmenu",SlidingMenuActivity.class);
+            put("butterKnift",TestButterKnifeActivity.class);
+            put("okhttp", OkHttpActivity.class);
         }
     };
     @Override
@@ -60,6 +74,45 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+        }
+
+        DaggerMainActivityComponent.builder().build().inject(this);
+        user.setName("caixiaoxiao");
+//        FragmentManager manager = getFragmentManager();
+//        android.support.v4.app.FragmentManager manager1 = getSupportFragmentManager();
+//        Fragment frag;
+//        frag.getFragmentManager();
+//        frag.getParentFragment();
+//        frag.getChildFragmentManager();
+        MyTask task = new MyTask();
+        task.execute("ddd");
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private class MyTask extends AsyncTask<String,Integer,Boolean>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
         }
     }
 }

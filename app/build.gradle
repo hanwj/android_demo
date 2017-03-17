@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
@@ -12,8 +14,12 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {
+            resValue "string","app_name","测试debug"
+        }
         release {
             minifyEnabled false
+            resValue "string","app_name","测试release"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -27,4 +33,13 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.2'
     compile project(':volley')
+    compile 'com.jakewharton:butterknife:8.4.0'
+//    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+//    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+
+    apt 'com.google.dagger:dagger-compiler:2.2'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compile 'com.google.dagger:dagger:2.2'
 }
