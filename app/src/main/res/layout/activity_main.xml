@@ -6,6 +6,24 @@
         android:id="@+id/root_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#f3f4f6">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:shadowColor="#ff0000"
+                android:shadowRadius="20"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:text="阴影阴影阴影"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:textSize="24sp"/>
+        </FrameLayout>
+
     </LinearLayout>
 </ScrollView>

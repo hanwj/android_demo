@@ -37,6 +37,7 @@
         <activity android:name=".SlidingMenuActivity"/>
         <activity android:name=".TestButterKnifeActivity"/>
         <activity android:name=".OkHttpActivity"/>
+        <activity android:name=".lifecycle.LifecycleActivity"/>
 
         <service android:name=".service.LocalService"></service>
         <service android:name=".service.ForegroundService"></service>
