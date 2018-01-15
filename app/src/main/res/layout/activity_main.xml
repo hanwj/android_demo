@@ -15,14 +15,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:shadowColor="#ff0000"
-                android:shadowRadius="20"
+                android:shadowColor="#000000"
+                android:shadowRadius="1"
                 android:shadowDx="0"
-                android:shadowDy="0"
+                android:shadowDy="2"
                 android:text="阴影阴影阴影"
-                android:textStyle="bold"
                 android:textColor="#ffffff"
-                android:textSize="24sp"/>
+                android:textSize="28sp"/>
         </FrameLayout>
 
     </LinearLayout>

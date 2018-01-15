@@ -11,8 +11,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/framework" />
+            <option value="$PROJECT_DIR$/pure2D" />
             <option value="$PROJECT_DIR$/rxjava" />
-            <option value="$PROJECT_DIR$/volley" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

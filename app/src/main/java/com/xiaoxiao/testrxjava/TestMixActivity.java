@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-import pl.droidsonroids.gif.GifDrawable;
+//import pl.droidsonroids.gif.GifDrawable;
 
 /**
  * Created by caixiaoxiao on 7/9/16.

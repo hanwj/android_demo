@@ -9,12 +9,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 /**
  * Created by caixiaoxiao on 11/8/16.
@@ -37,42 +31,42 @@ public class VolleyActivity extends FragmentActivity{
     }
 
     private void testVolley(){
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://dev1.xcyo.com/app/system/start";
-        url = "http://192.168.1.131/test.php";
-        final StringBuilder builder = new StringBuilder(new String("请求:" + url + "\n"));
-        text.setText(builder);
-//        queue.add(new StringRequest(url,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        Log.e("test", response);
-//                        builder.append("请求结果:" + response);
-//                        text.setText(builder);
-//                    }
-//                }, new Response.ErrorListener() {
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        String url = "http://dev1.xcyo.com/app/system/start";
+//        url = "http://192.168.1.131/test.php";
+//        final StringBuilder builder = new StringBuilder(new String("请求:" + url + "\n"));
+//        text.setText(builder);
+////        queue.add(new StringRequest(url,
+////                new Response.Listener<String>() {
+////                    @Override
+////                    public void onResponse(String response) {
+////                        Log.e("test", response);
+////                        builder.append("请求结果:" + response);
+////                        text.setText(builder);
+////                    }
+////                }, new Response.ErrorListener() {
+////            @Override
+////            public void onErrorResponse(VolleyError error) {
+////                builder.append("请求出错:" + error);
+////                text.setText(builder);
+////            }
+////        }));
+//
+////        url = "http://dev1.xcyo.com/app/passport/login";
+//        url = "http://192.168.1.131/test.php";
+//        StringRequest request = new StringRequest(Request.Method.POST,url, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                builder.append("请求结果:" + response);
+//                text.setText(builder);
+//            }
+//        }, new Response.ErrorListener() {
 //            @Override
 //            public void onErrorResponse(VolleyError error) {
 //                builder.append("请求出错:" + error);
 //                text.setText(builder);
 //            }
-//        }));
-
-//        url = "http://dev1.xcyo.com/app/passport/login";
-        url = "http://192.168.1.131/test.php";
-        StringRequest request = new StringRequest(Request.Method.POST,url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                builder.append("请求结果:" + response);
-                text.setText(builder);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                builder.append("请求出错:" + error);
-                text.setText(builder);
-            }
-        });
-        queue.add(request);
+//        });
+//        queue.add(request);
     }
 }

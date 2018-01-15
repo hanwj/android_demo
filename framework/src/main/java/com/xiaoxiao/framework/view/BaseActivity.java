@@ -7,6 +7,7 @@ import android.view.View;
 import com.xiaoxiao.framework.presenter.BaseActivityPresenter;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collections;
 
 /**
  * Created by caixiaoxiao on 11/8/16.
@@ -26,6 +27,7 @@ public abstract class BaseActivity<P extends BaseActivityPresenter>extends AppCo
         addListeners();
         mPresenter = createPresenter();
         mPresenter.onCreate(this);
+        Collections.sort();
     }
 
     private P createPresenter(){

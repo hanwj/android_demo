@@ -35,6 +35,7 @@ public class InputDialogFragment extends DialogFragment{
 //        return super.onCreateView(inflater, container, savedInstanceState);
         rootView = inflater.inflate(R.layout.dialog_input,null);
         faceView = rootView.findViewById(R.id.chat_face);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);//隐藏标题
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
 

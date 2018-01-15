@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             put("butterKnift",TestButterKnifeActivity.class);
             put("okhttp", OkHttpActivity.class);
             put("lifecycle", LifecycleActivity.class);
+            put("dragonAnim",DragonAnimActivity.class);
         }
     };
     @Override
