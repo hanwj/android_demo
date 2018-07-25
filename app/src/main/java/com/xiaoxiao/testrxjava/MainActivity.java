@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.xiaoxiao.testrxjava.actionBar.ActionBarActivity;
+import com.xiaoxiao.testrxjava.chatlist.ChatListActivity;
 import com.xiaoxiao.testrxjava.dagger2.DaggerMainActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.MainActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.User;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             put("okhttp", OkHttpActivity.class);
             put("lifecycle", LifecycleActivity.class);
             put("dragonAnim",DragonAnimActivity.class);
+            put("chatList", ChatListActivity.class);
         }
     };
     @Override
