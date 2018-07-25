@@ -27,7 +27,6 @@ public abstract class BaseActivity<P extends BaseActivityPresenter>extends AppCo
         addListeners();
         mPresenter = createPresenter();
         mPresenter.onCreate(this);
-        Collections.sort();
     }
 
     private P createPresenter(){

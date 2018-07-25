@@ -20,10 +20,12 @@ import com.xiaoxiao.view.dragon.NotificationBean;
 public class DragonAnimActivity extends FragmentActivity {
     private DragonNotificationView dragonView;
     private DragonLwfView dragonLwfView;
+    ViewGroup rootView;
+    int count  = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup rootView = new FrameLayout(this);
+        rootView = new FrameLayout(this);
         setContentView(rootView);
 
         Button addBtn = new Button(this);
@@ -46,6 +48,7 @@ public class DragonAnimActivity extends FragmentActivity {
 //                dragonView.addNotification("ddd");
 //                dragonLwfView.addNotification("ddd");
                 NotificationBean bean = new NotificationBean();
+                bean.setFrom("蔡潇潇" + (++count));
                 dragonView.addNotification(bean);
             }
         });
@@ -56,9 +59,13 @@ public class DragonAnimActivity extends FragmentActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 //        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-//            dragonView.setType(DragonNotificationView.TYPE_MULTI);
+//            if (dragonView != null && dragonView.getParent() == null){
+//                rootView.addView(dragonView);
+//            }
 //        }else {
-//            dragonView.setType(DragonNotificationView.TYPE_SINGLE);
+//            if (dragonView != null){
+//                rootView.removeView(dragonView);
+//            }
 //        }
     }
 }

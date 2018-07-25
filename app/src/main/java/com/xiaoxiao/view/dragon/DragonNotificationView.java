@@ -16,12 +16,14 @@ import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xiaoxiao.testrxjava.R;
 import com.xiaoxiao.utils.LogUtils;
@@ -35,12 +37,12 @@ import java.util.List;
  * 神龙滚屏通知
  */
 
-public class DragonNotificationView extends HorizontalScrollView {
+public class DragonNotificationView extends FrameLayout {
 //    public static final int TYPE_SINGLE = 1; //单个
 //    public static final int TYPE_MULTI = 2; //追加
-
+    private final static String TAG = DragonNotificationView.class.getSimpleName();
     private LayoutInflater mInflater;
-    private FrameLayout mContainerView;
+//    private FrameLayout mContainerView;
     private List<NotificationBean> mList;
     private DragonListener mListener;
     private int num; //动画数量
@@ -64,24 +66,24 @@ public class DragonNotificationView extends HorizontalScrollView {
     public void init(Context context){
         mInflater = LayoutInflater.from(context);
         //高度固定35dp
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                getResources().getDimensionPixelSize(R.dimen.dragon_notification_height));
-        setLayoutParams(lp);
+//        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                getResources().getDimensionPixelSize(R.dimen.dragon_notification_height));
+//        setLayoutParams(lp);
 //        setBackgroundColor(Color.BLACK);
-        mContainerView = new FrameLayout(context);
-        lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        mContainerView.setLayoutParams(lp);
-        addView(mContainerView);
+//        mContainerView = new FrameLayout(context);
+//        lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.MATCH_PARENT);
+//        mContainerView.setLayoutParams(lp);
+//        addView(mContainerView);
 //        mContainerView.setBackgroundColor(Color.RED);
         mList = new ArrayList<>();
         num = 0;
         maxNum = 1;
         mSpeed = Util.dp2px(1);
         mSpeedFactor = 15;
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int minWidth = Math.max(displayMetrics.widthPixels,displayMetrics.heightPixels);
-        mContainerView.setMinimumWidth(minWidth);
+//        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+//        int minWidth = Math.max(displayMetrics.widthPixels,displayMetrics.heightPixels);
+//        mContainerView.setMinimumWidth(minWidth);
     }
 
     public void addNotification(NotificationBean item){
@@ -92,13 +94,14 @@ public class DragonNotificationView extends HorizontalScrollView {
     }
     private void showNotification(final boolean repeat){
         if (repeat) {
-            int childCount = mContainerView.getChildCount();
+            int childCount = getChildCount();
             float rightMargin = 0F;
             float space = getResources().getDisplayMetrics().density * 20;
             for (int i = 0; i < childCount; i++) {
-                View child = mContainerView.getChildAt(i);
-                if (child.getVisibility() == View.VISIBLE && child.isShown()) {
-                    float childMargin = child.getX() + child.getWidth() + space;
+                View child = getChildAt(i);
+                if (true) {
+                    int itemWidth = (int) child.getTag();
+                    float childMargin = child.getX() + itemWidth + space;
                     if (childMargin > rightMargin) {
                         rightMargin = childMargin;
                     }
@@ -114,6 +117,7 @@ public class DragonNotificationView extends HorizontalScrollView {
             if (mList.size() <= 0 || rightMargin > getWidth()) {
                 return;
             }
+            LogUtils.e(TAG,"rightMargin:" + rightMargin + ",width:" + getWidth());
         } else {
             if (num >= maxNum || mList.size() <= 0) {
                 return;
@@ -122,12 +126,18 @@ public class DragonNotificationView extends HorizontalScrollView {
 
         ++num;
         NotificationBean item = mList.remove(0);
+        LogUtils.e(TAG,"index:" + item.getFrom());
         final View itemView = createNotificationView(item);
-        mContainerView.addView(itemView);
-
         itemView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         int width = itemView.getMeasuredWidth();
+        itemView.setTag(width);
+
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(width,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        addView(itemView,lp);
+
+
 //        int screenWidth = getResources().getDisplayMetrics().widthPixels;
         ObjectAnimator enterAnim = ObjectAnimator.ofFloat(itemView,"translationX",getWidth(),-width);
         enterAnim.setInterpolator(new LinearInterpolator());
@@ -139,7 +149,7 @@ public class DragonNotificationView extends HorizontalScrollView {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                mContainerView.removeView(itemView);
+                removeView(itemView);
                 --num;
                 showNotification(repeat);
             }
@@ -148,6 +158,13 @@ public class DragonNotificationView extends HorizontalScrollView {
         updateListener.equals(repeat ? 1 : 0);
         enterAnim.addUpdateListener(updateListener);
     }
+
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent ev) {
+////        return super.onTouchEvent(ev);
+//        return false;
+//    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -164,19 +181,20 @@ public class DragonNotificationView extends HorizontalScrollView {
      * 生成一个神龙通知view
      * @return
      */
-    private View createNotificationView(NotificationBean item){
+    private View createNotificationView(final NotificationBean item){
         View view = mInflater.inflate(R.layout.view_dragon_notification,this,false);
         TextView contextView = (TextView) view.findViewById(R.id.dragon_content);
         SpannableStringBuilder builder = new SpannableStringBuilder("");
-        SpannableString span = new SpannableString("蔡潇潇");
+        SpannableString span = new SpannableString(item.getFrom());
         span.setSpan(new ForegroundColorSpan(Color.RED),0,span.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         span.setSpan(new StyleSpan(Typeface.BOLD),0,span.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         builder.append(span);
-        builder.append("蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡");
+        builder.append("蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇蔡潇潇");
         contextView.setText(builder);
         contextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), item.getFrom(), Toast.LENGTH_SHORT).show();
                 if (mListener != null){
                     mListener.onClick();
                 }
