@@ -109,6 +109,13 @@ public class MainActivity extends AppCompatActivity {
             list.add(i+"");
         }
         List<String> b = list.subList(0,10);
+//        MutableLiveData<String> liveData = new MutableLiveData<>();
+    }
+
+    @Deprecated
+    @SuppressWarnings("")
+    public void testAnnatation(){
+        getClass().getAnnotation(SuppressWarnings.class).value();
     }
 
     @Override
