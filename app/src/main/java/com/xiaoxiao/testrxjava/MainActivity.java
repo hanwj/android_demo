@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             layoutParams.setMargins(30, 30, 30, 30);
             button.setLayoutParams(layoutParams);
             button.setText(entry.getKey());
+            button.setBackgroundResource(R.drawable.bg_video_info);
             rootView.addView(button);
 
             final Class<?> cls = entry.getValue();
