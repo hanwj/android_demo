@@ -33,6 +33,25 @@ android {
 //            jni.srcDirs = ["libs"]
 //        }
 //    }
+
+    flavorDimensions "market","channel"
+    productFlavors {
+        marketA {
+            dimension "market"
+        }
+
+        marketB {
+            dimension "market"
+        }
+
+        channelA {
+            dimension "channel"
+        }
+
+        channelB {
+            dimension "channel"
+        }
+    }
 }
 
 dependencies {
