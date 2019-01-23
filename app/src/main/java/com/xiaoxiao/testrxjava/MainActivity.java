@@ -20,6 +20,8 @@ import com.xiaoxiao.testrxjava.chatlist.ChatListActivity;
 import com.xiaoxiao.testrxjava.dagger2.DaggerMainActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.MainActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.User;
+import com.xiaoxiao.testrxjava.floatwindow.MockClickWindow;
+import com.xiaoxiao.testrxjava.floatwindow.permission.FloatWindowManager;
 import com.xiaoxiao.testrxjava.lifecycle.LifecycleActivity;
 import com.xiaoxiao.testrxjava.service.ServiceActivity;
 import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             put("lifecycle", LifecycleActivity.class);
             put("dragonAnim",DragonAnimActivity.class);
             put("chatList", ChatListActivity.class);
+            put("floatwindow",null);
         }
     };
     @Override
@@ -81,14 +84,27 @@ public class MainActivity extends AppCompatActivity {
             button.setBackgroundResource(R.drawable.bg_video_info);
             rootView.addView(button);
 
-            final Class<?> cls = entry.getValue();
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this,cls);
-                    startActivity(intent);
-                }
-            });
+            if ("floatwindow".equals(entry.getKey())){
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (FloatWindowManager.getInstance().checkPermission(MainActivity.this)){
+                            MockClickWindow.getInstance().show(MainActivity.this.getApplicationContext());
+                        }else {
+                            FloatWindowManager.getInstance().applyPermission(MainActivity.this);
+                        }
+                    }
+                });
+            }else {
+                final Class<?> cls = entry.getValue();
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this,cls);
+                        startActivity(intent);
+                    }
+                });
+            }
         }
         component = DaggerMainActivityComponent.builder().build();
         component.inject(this);
@@ -111,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         }
         List<String> b = list.subList(0,10);
 //        MutableLiveData<String> liveData = new MutableLiveData<>();
+
     }
 
     @Deprecated

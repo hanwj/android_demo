@@ -2,6 +2,7 @@ package com.xiaoxiao.testrxjava;
 
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
@@ -17,6 +18,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.generic.RoundingParams;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiaoxiao.utils.LogUtils;
 import com.xiaoxiao.utils.Util;
 import com.xiaoxiao.view.TestImageView;
@@ -42,6 +49,19 @@ public class FrameLayoutActivity extends FragmentActivity{
         ImageView frameImg2 = (ImageView) findViewById(R.id.liao_frame2);
         AnimationDrawable animDrawable2 = (AnimationDrawable) frameImg2.getDrawable();
         animDrawable2.start();
+
+        SimpleDraweeView netImg = (SimpleDraweeView) findViewById(R.id.fresco_img);
+        RoundingParams roundingParams = RoundingParams.fromCornersRadius(7);
+//        RoundingParams roundingParams = RoundingParams.asCircle();
+        roundingParams.setOverlayColor(Color.WHITE);
+        netImg.setHierarchy(new GenericDraweeHierarchyBuilder(getResources()).setRoundingParams(roundingParams).build());
+        DraweeController draweeController = Fresco.newDraweeControllerBuilder()
+//                .setUri(Uri.parse("http://sr3.pplive.cn//cms//26//64//79272b5317bd2db955b2e281d699d2cd.gif"))
+                .setUri(Uri.parse("http://sr1.pplive.cn//cms//12//69//0b3c7ad0f65bf9aab527c655e658d8eb.jpg"))
+                .setAutoPlayAnimations(true).build();
+        netImg.setController(draweeController);
+//        netImg.setImageURI(Uri.parse("http://sr3.pplive.cn//cms//26//64//79272b5317bd2db955b2e281d699d2cd.gif"));
+
 
         final TextView txt = (TextView) findViewById(R.id.test_txt);
         final TextView txt2 = (TextView) findViewById(R.id.test_txt2);
