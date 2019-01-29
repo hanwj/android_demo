@@ -11,4 +11,10 @@ public class BaseDialogFragPresenter<D extends BaseDialogFragment> extends BaseP
         this.mDialogFrag = dialogFrag;
         loadData();
     }
+
+    @Override
+    public void onDetachView() {
+        super.onDetachView();
+        this.mDialogFrag = null;
+    }
 }

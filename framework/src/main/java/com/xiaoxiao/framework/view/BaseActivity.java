@@ -14,55 +14,46 @@ import java.util.Collections;
  */
 public abstract class BaseActivity<P extends BaseActivityPresenter>extends AppCompatActivity implements ViewInterface{
     protected P mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getLayoutId() > 0){
-            setContentView(getLayoutId());
-        }else {
-            setContentView(getLayout());
-        }
         initArgs();
+        setContentView(getLayoutId());
         initViews();
         addListeners();
+        loadData();
+    }
+
+    @Override
+    public void loadData() {
         mPresenter = createPresenter();
-        mPresenter.onCreate(this);
-    }
-
-    private P createPresenter(){
-        Class genericClass = (Class)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        try {
-            return (P)genericClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        if (mPresenter != null){
+            mPresenter.onAttachView();
+            mPresenter.onCreate(this);
         }
-        return null;
     }
 
-    @Override
-    public View getLayout() {
-        return null;
-    }
-
-    /**声明周期start**/
-    @Override
-    protected void onResume() {
-        mPresenter.onResume();
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        mPresenter.onPause();
-        super.onPause();
-    }
+//    private P createPresenter(){
+//        Class genericClass = (Class)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+//        try {
+//            return (P)genericClass.newInstance();
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     @Override
     protected void onDestroy() {
-        mPresenter.onDestory();
+        if (mPresenter != null){
+            mPresenter.onDestory();
+            mPresenter.onDetachView();
+        }
         super.onDestroy();
     }
-    /**声明周期end**/
+
+    protected abstract P createPresenter();
 }

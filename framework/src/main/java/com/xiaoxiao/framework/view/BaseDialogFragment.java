@@ -9,49 +9,66 @@ import android.view.ViewGroup;
 
 import com.xiaoxiao.framework.presenter.BaseDialogFragPresenter;
 
-import java.lang.reflect.ParameterizedType;
-
 /**
  * Created by caixiaoxiao on 11/8/16.
  */
 public abstract class BaseDialogFragment <P extends BaseDialogFragPresenter>extends DialogFragment implements ViewInterface{
     protected P mPresenter;
-    private View view;
+    private View rootView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initArgs();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(getLayoutId(),null);
-        initArgs();
+        rootView = inflater.inflate(getLayoutId(),null);
         initViews();
         addListeners();
-        mPresenter = createPresenter();
-        mPresenter.onCreate(this);
-        mPresenter.loadData();
-        return view;
-    }
-
-    private P createPresenter(){
-        Class genericClass = (Class)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        try {
-            return (P)genericClass.newInstance();
-        } catch (java.lang.InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public <T extends View> T findViewById(int id){
-        return (T)view.findViewById(id);
-    }
-
-    public View getView() {
-        return view;
+        loadData();
+        return rootView;
     }
 
     @Override
-    public View getLayout() {
-        return null;
+    public void loadData() {
+        mPresenter = createPresenter();
+        if (mPresenter != null){
+            mPresenter.onAttachView();
+            mPresenter.onCreate(this);
+        }
     }
+
+//    private P createPresenter(){
+//        Class genericClass = (Class)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+//        try {
+//            return (P)genericClass.newInstance();
+//        } catch (java.lang.InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
+    @Override
+    public void onDestroyView() {
+        if (mPresenter != null){
+            mPresenter.onDestory();
+            mPresenter.onDetachView();
+        }
+        super.onDestroyView();
+    }
+
+    public View getRootView() {
+        return rootView;
+    }
+
+    public <T extends View> T findViewById(int id){
+        return (T) rootView.findViewById(id);
+    }
+
+    protected abstract P createPresenter();
 }

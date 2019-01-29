@@ -11,4 +11,10 @@ public class BaseActivityPresenter<A extends BaseActivity> extends BasePresenter
         this.mActivity = activity;
         loadData();
     }
+
+    @Override
+    public void onDetachView() {
+        super.onDetachView();
+        this.mActivity = null;
+    }
 }

@@ -11,4 +11,10 @@ public class BaseFragmentPresenter<F extends BaseFragment> extends BasePresenter
         this.mFragment = frag;
         loadData();
     }
+
+    @Override
+    public void onDetachView() {
+        super.onDetachView();
+        this.mFragment = null;
+    }
 }
