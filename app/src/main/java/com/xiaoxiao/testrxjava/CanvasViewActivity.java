@@ -23,10 +23,12 @@ public class CanvasViewActivity extends FragmentActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View v;
-        v = new CanvasView(this);
+//        View v;
+//        v = new CanvasView(this);
 //        v = new CustomView(this);
-        setContentView(v);
+//        setContentView(v);
+
+        setContentView(R.layout.activity_canvas);
     }
 
     class CustomView extends View{
