@@ -60,4 +60,11 @@
         android:background="@android:color/black">
 
     </View>
+
+    <com.xiaoxiao.view.LargestImageView
+        android:id="@+id/canvas_largest"
+        android:layout_width="290dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="300dp"
+        android:background="@android:color/black"/>
 </FrameLayout>

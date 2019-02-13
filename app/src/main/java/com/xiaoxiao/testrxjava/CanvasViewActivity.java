@@ -13,7 +13,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.xiaoxiao.view.CanvasView;
+import com.xiaoxiao.view.LargestImageView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +32,23 @@ public class CanvasViewActivity extends FragmentActivity{
 //        setContentView(v);
 
         setContentView(R.layout.activity_canvas);
+
+        LargestImageView largestImageView = (LargestImageView) findViewById(R.id.canvas_largest);
+        InputStream is = null;
+        try {
+            is = getAssets().open("temp_singer_photo.png");
+            largestImageView.setInputStream(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     class CustomView extends View{
