@@ -36,7 +36,8 @@ public class CanvasViewActivity extends FragmentActivity{
         LargestImageView largestImageView = (LargestImageView) findViewById(R.id.canvas_largest);
         InputStream is = null;
         try {
-            is = getAssets().open("temp_singer_photo.png");
+//            is = getAssets().open("temp_singer_photo.png");
+            is = getAssets().open("qingming.jpeg");
             largestImageView.setInputStream(is);
         } catch (IOException e) {
             e.printStackTrace();
