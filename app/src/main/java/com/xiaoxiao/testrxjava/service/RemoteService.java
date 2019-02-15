@@ -28,12 +28,12 @@ public class RemoteService extends Service{
         }
 
         @Override
-        public int plus(int a, int b) throws RemoteException {
+        public int plus(int a, int b){
             return a + b;
         }
 
         @Override
-        public String toUpperCase(String str) throws RemoteException {
+        public String toUpperCase(String str){
             if (str != null){
                 return str.toUpperCase();
             }

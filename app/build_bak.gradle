@@ -82,6 +82,67 @@ android {
             dimension "channel"
         }
     }
+
+    def srcFiles = []
+    def destFiles = []
+    applicationVariants.all { variant ->
+
+        variant.outputs.all { output ->
+//            def newPath = variant.getPackageApplication().outputDirectory.getAbsolutePath().replace("${variant.productFlavors[0].name}/","")
+//            variant.getPackageApplication().outputDirectory = new File(newPath)
+            def outputFile = output.outputFile
+            def fileName
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                if (variant.buildType.name.equals('release')) {
+                    fileName = "app-${variant.versionName}_-${variant.productFlavors[0].name}_${releaseTime()}_release.apk"
+                } else if (variant.buildType.name.equals('debug')) {
+                    fileName = "app-${defaultConfig.versionName}-${variant.productFlavors[0].name}_debug.apk"
+                } else {
+                    fileName = "app-${defaultConfig.versionName}_-${variant.productFlavors[0].name}_${releaseTime()}_preview.apk"
+                }
+//                outputFileName = fileName
+//                def outputPath = outputFile.parentFile.absolutePath + File.separator + fileName
+                def newPath = outputFile.parentFile.absolutePath.replace("${variant.productFlavors[0].name}/","")
+                println("ddddddd1${outputFile.parentFile.absolutePath}")
+                println("ddddddd2${newPath}")
+                srcFiles.add(outputFile.parentFile.absolutePath + File.separator + fileName)
+                destFiles.add(newPath)
+//                output.outputFile.name.replace(outputFile.name, fileName);
+//                output.outputFile = new File(outputFile.parent + "/${variant.buildType.name}", fileName)
+            }
+        }
+    }
+//
+//    build.doLast {
+//        copyFile(srcFiles,destFiles)
+//    }
+
+//    afterEvaluate {
+//        assembleDebug.doLast {
+//            copyFile(srcFiles,destFiles)
+//        }
+//
+//        assembleRelease.doLast {
+//            copyFile(srcFiles,destFiles)
+//        }
+//
+//        assemblePreview.doLast {
+//            copyFile(srcFiles,destFiles)
+//        }
+//    }
+
+    task renameApk << {copyFile(srcFiles,destFiles)}
+
+    tasks.whenTaskAdded{ task ->
+        println("task's name:${task.name}")
+        if (task.name == 'assembleDebug'){
+            task.finalizedBy renameApk
+        }else if (task.name == 'assembleRelease'){
+            task.finalizedBy renameApk
+        }else if (task.name == 'assemblePreview'){
+            task.finalizedBy renameApk
+        }
+    }
 }
 
 dependencies {

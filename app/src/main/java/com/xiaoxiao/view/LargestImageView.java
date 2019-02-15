@@ -95,7 +95,7 @@ public class LargestImageView extends View{
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-
+                preMotionEvent.recycle();
                 break;
         }
         return true;

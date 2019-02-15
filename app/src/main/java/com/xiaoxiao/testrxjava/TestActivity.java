@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -34,7 +35,7 @@ import javax.inject.Inject;
 /**
  * Created by meibo-design on 17/5/16.
  */
-public class TestActivity extends FragmentActivity {
+public class TestActivity extends AppCompatActivity {
     @Inject
     User user;
 

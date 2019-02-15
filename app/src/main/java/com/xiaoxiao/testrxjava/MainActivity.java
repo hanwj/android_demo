@@ -1,14 +1,12 @@
 package com.xiaoxiao.testrxjava;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +26,7 @@ import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
 import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -45,27 +41,28 @@ public class MainActivity extends AppCompatActivity {
     User user;
     @Inject
     User user2;
-    private Map<String,Class<?>> funcMap = new HashMap<String,Class<?>>(){
+
+    private List<Pair<String,Class<?>>> funcList = new ArrayList<Pair<String,Class<?>>>(){
         {
-            put("toolbar",ToolbarActivity.class);
-            put("actionbar",ActionBarActivity.class);
-            put("anim",TestActivity.class);
-            put("service", ServiceActivity.class);
-            put("input", TestKeyBoardActivity.class);
-            put("listview", ListViewInScrollActivity.class);
-            put("surfaceview", SurfaceViewActivity.class);
-            put("canvas",CanvasViewActivity.class);
-            put("pagerSlidingTabStrip",PagerSlidingTabActivity.class);
-            put("framelayout",FrameLayoutActivity.class);
-            put("volley",VolleyActivity.class);
-            put("testmix",TestMixActivity.class);
-            put("slidingmenu",SlidingMenuActivity.class);
-            put("butterKnift",TestButterKnifeActivity.class);
-            put("okhttp", OkHttpActivity.class);
-            put("lifecycle", LifecycleActivity.class);
-            put("dragonAnim",DragonAnimActivity.class);
-            put("chatList", ChatListActivity.class);
-            put("floatwindow",null);
+            add(new Pair<String, Class<?>>("toolbar",ToolbarActivity.class));
+            add(new Pair<String, Class<?>>("actionbar",ActionBarActivity.class));
+            add(new Pair<String, Class<?>>("anim",TestActivity.class));
+            add(new Pair<String, Class<?>>("service", ServiceActivity.class));
+            add(new Pair<String, Class<?>>("input", TestKeyBoardActivity.class));
+            add(new Pair<String, Class<?>>("listview", ListViewInScrollActivity.class));
+            add(new Pair<String, Class<?>>("surfaceview", SurfaceViewActivity.class));
+            add(new Pair<String, Class<?>>("canvas",CanvasViewActivity.class));
+            add(new Pair<String, Class<?>>("pagerSlidingTabStrip",PagerSlidingTabActivity.class));
+            add(new Pair<String, Class<?>>("framelayout",FrameLayoutActivity.class));
+            add(new Pair<String, Class<?>>("volley",VolleyActivity.class));
+            add(new Pair<String, Class<?>>("testmix",TestMixActivity.class));
+            add(new Pair<String, Class<?>>("slidingmenu",SlidingMenuActivity.class));
+            add(new Pair<String, Class<?>>("butterKnift",TestButterKnifeActivity.class));
+            add(new Pair<String, Class<?>>("okhttp", OkHttpActivity.class));
+            add(new Pair<String, Class<?>>("lifecycle", LifecycleActivity.class));
+            add(new Pair<String, Class<?>>("dragonAnim",DragonAnimActivity.class));
+            add(new Pair<String, Class<?>>("chatList", ChatListActivity.class));
+            add(new Pair<String, Class<?>>("floatwindow",null));
         }
     };
     @Override
@@ -73,18 +70,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ViewGroup rootView = (ViewGroup)findViewById(R.id.root_view);
-        for (Map.Entry<String,Class<?>> entry:funcMap.entrySet()){
+        for (Pair<String,Class<?>> pair : funcList){
             Button button = new Button(this);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                     LinearLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(30, 30, 30, 30);
             button.setLayoutParams(layoutParams);
-            button.setText(entry.getKey());
+            button.setText(pair.first);
             button.setBackgroundResource(R.drawable.bg_video_info);
             rootView.addView(button);
 
-            if ("floatwindow".equals(entry.getKey())){
+            if ("floatwindow".equals(pair.first)){
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -96,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }else {
-                final Class<?> cls = entry.getValue();
+                final Class<?> cls = pair.second;
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -113,12 +110,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("MainActivity1", user2.getName());
         user2.setName("caixiaoxiao2");
         Log.e("MainActivity1", user.getName());
-//        FragmentManager manager = getFragmentManager();
-//        android.support.v4.app.FragmentManager manager1 = getSupportFragmentManager();
-//        Fragment frag;
-//        frag.getFragmentManager();
-//        frag.getParentFragment();
-//        frag.getChildFragmentManager();
+
         MyTask task = new MyTask();
         task.execute("ddd");
         List<String> list = new ArrayList<>();
@@ -126,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
             list.add(i+"");
         }
         List<String> b = list.subList(0,10);
-//        MutableLiveData<String> liveData = new MutableLiveData<>();
 
     }
 
