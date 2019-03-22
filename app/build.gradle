@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 //apply plugin: 'com.jakewharton.butterknife'
-apply plugin: 'android-apt'
+//apply plugin: 'android-apt'
 
 def releaseTime() {
     return new Date().format("yyyy-MM-dd_HH:mm")//不需要加 timeZone UTC，否则时间不正确（没有加时区8小时）
 }
 
-def copyFile(List srcFiles,List destFiles) {
-    for (i in 0..srcFiles.size() - 1){
+def copyFile(List srcFiles, List destFiles) {
+    for (i in 0..srcFiles.size() - 1) {
         copy {
             from(srcFiles[i])
             into(destFiles[i])
@@ -16,13 +16,13 @@ def copyFile(List srcFiles,List destFiles) {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.0'
 
     defaultConfig {
         applicationId "com.xiaoxiao.testrxjava"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -45,11 +45,11 @@ android {
 
     buildTypes {
         debug {
-            resValue "string","app_name","测试debug"
+            resValue "string", "app_name", "测试debug"
         }
         release {
             minifyEnabled false
-            resValue "string","app_name","测试release"
+            resValue "string", "app_name", "测试release"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -64,7 +64,7 @@ android {
 //        }
 //    }
 
-    flavorDimensions "market","channel"
+    flavorDimensions "market", "channel"
     productFlavors {
         marketA {
             dimension "market"
@@ -82,6 +82,9 @@ android {
             dimension "channel"
         }
     }
+//    dynamicFeatures = [":featurea"]
+
+
 }
 
 dependencies {
@@ -92,13 +95,13 @@ dependencies {
     compile 'com.android.support:design:23.2.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     //    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.2'
-    compile project(':pure2D')
+    compile project(path: ':pure2D',configuration: 'default')
     compile 'com.jakewharton:butterknife:8.4.0'
     //    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     //    compile 'com.squareup.okhttp3:okhttp:3.6.0'
     //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    apt 'com.google.dagger:dagger-compiler:2.2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.2'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'com.google.dagger:dagger:2.2'
     //    compile 'com.longzhu.sdk:pure2D:1.0.9'

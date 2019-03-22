@@ -1,1 +1,1 @@
-include ':app', ':rxjava', ':framework', ':pure2D'
+include ':app', ':rxjava', ':framework', ':pure2D', ':featurea'

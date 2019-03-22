@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             add(new Pair<String, Class<?>>("dragonAnim",DragonAnimActivity.class));
             add(new Pair<String, Class<?>>("chatList", ChatListActivity.class));
             add(new Pair<String, Class<?>>("floatwindow",null));
+            add(new Pair<String, Class<?>>("webview",WebActivity.class));
         }
     };
     @Override
