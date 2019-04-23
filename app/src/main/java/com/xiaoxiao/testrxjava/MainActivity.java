@@ -28,6 +28,7 @@ import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.inject.Inject;
 
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             add(new Pair<String, Class<?>>("floatwindow",null));
             add(new Pair<String, Class<?>>("webview",WebActivity.class));
             add(new Pair<String, Class<?>>("DaemonService", DaemonActivity.class));
+            add(new Pair<String, Class<?>>("plugin", PluginActivity.class));
         }
     };
     @Override

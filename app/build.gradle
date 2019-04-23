@@ -91,11 +91,12 @@ dependencies {
     //    compile fileTree(dir: 'libs', include: ['*.jar'])
     //    compile(name:'madlib', ext:'aar')
 //    testImplementation 'junit:junit:4.12'
+    implementation project(path: ':pure2D',configuration: 'default')
+    implementation project(path: ':pluginhost')
     implementation 'com.android.support:appcompat-v7:26.0.0'
     implementation 'com.android.support:design:26.0.0'
     implementation 'org.greenrobot:eventbus:3.0.0'
     //    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.2'
-    implementation project(path: ':pure2D',configuration: 'default')
     implementation 'com.jakewharton:butterknife:8.4.0'
     //    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     //    compile 'com.squareup.okhttp3:okhttp:3.6.0'
