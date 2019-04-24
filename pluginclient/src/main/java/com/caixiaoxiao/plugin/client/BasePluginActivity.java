@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
  * 日期: 2019/4/23
  */
 public class BasePluginActivity extends FragmentActivity{
+    private final String TAG = "BasePluginActivity";
     public final static String EXTRA_DEX_PATH = "dexpath";
     public final static String EXTRA_CLASS = "classname";
     public final static String EXTRA_FROM = "from";
@@ -30,6 +32,7 @@ public class BasePluginActivity extends FragmentActivity{
         if (savedInstanceState != null){
             mFrom = savedInstanceState.getInt(EXTRA_FROM);
         }
+        Log.e(TAG,"onCreate: from=" + mFrom);
 
         if (mFrom == FROM_INTERNAL){
             mProxyAct = this;
@@ -39,6 +42,7 @@ public class BasePluginActivity extends FragmentActivity{
 
     public void setProxy(Activity proxy){
         this.mProxyAct = proxy;
+        Log.e(TAG,"setProxy: proxyActivity=" + mProxyAct);
     }
 
     public void startActivityByProxy(String className){

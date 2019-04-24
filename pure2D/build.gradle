@@ -18,6 +18,6 @@ android {
 }
 
 dependencies {
-    compile files('libs/jbox2d-library-2.1.2.2.jar')
-    compile files('libs/slf4j-android-1.5.8.jar')
+    api files('libs/jbox2d-library-2.1.2.2.jar')
+    api files('libs/slf4j-android-1.5.8.jar')
 }

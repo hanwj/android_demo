@@ -2,6 +2,7 @@ package com.caixiaoxiao.plugin.test;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.caixiaoxiao.plugin.client.BasePluginActivity;
 
