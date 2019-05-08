@@ -1,13 +1,14 @@
 package com.rxjava;
 
+import java.lang.management.ManagementFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ThreadMain {
 
     public static void main(String[] args){
-//        testThread();
-        testAtomic();
+        testThread();
+//        testAtomic();
     }
 
     private static int a = 1;
@@ -59,6 +60,5 @@ public class ThreadMain {
             e.printStackTrace();
         }
         System.out.printf("total: %d\n",total.get());
-
     }
 }
