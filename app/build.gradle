@@ -15,6 +15,33 @@ def copyFile(List srcFiles, List destFiles) {
     }
 }
 
+def isWindows() {
+    return System.properties['os.name'].contains('windows');
+}
+
+def createDir(String dir) {
+    String path = System.getProperty("TEST_PATH");
+    println(path);
+    File file = new File(dir);
+    if(!file.exists()){
+        file.mkdirs();
+    }
+}
+
+def clearDir(String path) {
+    File dir = new File(path);
+    if (dir.exists() && dir.isDirectory()){
+        File[] fileList = dir.listFiles();
+        for (File file : fileList){
+            if (file.isDirectory()){
+                file.deleteDir();
+            }else {
+                file.delete();
+            }
+        }
+    }
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -85,6 +112,58 @@ android {
 //    dynamicFeatures = [":featurea"]
 
 
+}
+
+def Properties buildConfig = new Properties();
+if (project.hasProperty("jdkPath")) {
+    buildConfig.put("jdkPath", project.property("jdkPath"));
+}
+
+task runFireline(type:Exec) {
+    def javaHome = "java"
+    def outDir = "${rootDir}/scanReport"
+    println buildConfig.jdkPath
+    if (buildConfig.jdkPath != null && !buildConfig.jdkPath.equals("")){
+        println "111"
+        javaHome = buildConfig.jdkPath
+    }
+    println "rootDir:${rootDir}"
+    createDir(outDir)
+    clearDir(outDir)
+    if (isWindows()){
+        commandLine 'cmd' , '/c' , "java -jar ${rootDir}/fireline_1.6.11.jar -s=${rootDir}/app/src proj_name=androidphone -r=${outDir}"
+    }else {
+        commandLine 'bash' , '-c' , "java -jar ${rootDir}/fireline_1.6.11.jar -s=${rootDir}/app/src proj_name=androidphone -r=${outDir}"
+    }
+    standardOutput = new ByteArrayOutputStream()
+    ext.output = {
+        return standardOutput.toString()
+    }
+    println standardOutput
+}
+
+task compressResByPngquant(type: Exec){
+    def resDir = "src/main/res/"
+    def pngCmd = ''
+    def jpgCmd = ''
+    fileTree(resDir){
+        include('**/*.png',"**/*.jpg")
+    }.each{
+        file ->
+            def name = file.name
+            def pos = name.lastIndexOf(".")
+            def suffix = name.substring(pos)
+            if (suffix.equals('.png')){
+                pngCmd += " ${file.absolutePath}"
+            }else if (suffix.equals('.jpg')){
+                jpgCmd += " ${file.absolutePath}"
+            }
+            println file.absolutePath
+//            cmd += "${rootDir}/pngquant --posterize RGBA4444 --ext ${suffix} --force ${file.absolutePath}"
+    }
+    def cmd = "${rootDir}/pngquant --posterize RGBA4444 --ext .png --force ${pngCmd} && " +
+            "${rootDir}/pngquant --posterize RGBA4444 --ext '' --force ${jpgCmd}"
+    commandLine 'bash',"-c", cmd
 }
 
 dependencies {
