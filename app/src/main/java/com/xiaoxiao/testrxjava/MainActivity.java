@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
             list.add(i+"");
         }
         List<String> b = list.subList(0,10);
-
     }
 
     @Deprecated
