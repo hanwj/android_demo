@@ -58,6 +58,11 @@
         <activity android:name=".PluginActivity"/>
         <activity android:name="com.caixiaoxiao.plugin.host.ProxyActivity"/>
 
+        <activity
+            android:name=".coordinatorlayout.CoordinatorLayoutActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".RecyclerViewActivity"/>
+
         <service android:name=".service.LocalService"></service>
         <service android:name=".service.ForegroundService"></service>
         <service android:name=".service.RemoteService" android:process=":remote"></service>

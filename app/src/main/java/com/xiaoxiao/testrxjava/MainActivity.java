@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.xiaoxiao.testrxjava.actionBar.ActionBarActivity;
 import com.xiaoxiao.testrxjava.chatlist.ChatListActivity;
+import com.xiaoxiao.testrxjava.coordinatorlayout.CoordinatorLayoutActivity;
 import com.xiaoxiao.testrxjava.daemon.DaemonActivity;
 import com.xiaoxiao.testrxjava.dagger2.DaggerMainActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.MainActivityComponent;
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
             add(new Pair<String, Class<?>>("webview",WebActivity.class));
             add(new Pair<String, Class<?>>("DaemonService", DaemonActivity.class));
             add(new Pair<String, Class<?>>("plugin", PluginActivity.class));
+            add(new Pair<String, Class<?>>("coordinator", CoordinatorLayoutActivity.class));
+            add(new Pair<String, Class<?>>("recyclerview", RecyclerViewActivity.class));
         }
     };
     @Override
