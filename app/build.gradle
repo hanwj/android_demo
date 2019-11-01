@@ -118,22 +118,37 @@ def Properties buildConfig = new Properties();
 if (project.hasProperty("jdkPath")) {
     buildConfig.put("jdkPath", project.property("jdkPath"));
 }
+if (project.hasProperty("scanDir")) {
+    buildConfig.put("scanDir", project.property("scanDir"));
+}
 
+/**
+ * 360Fireline代码扫描
+ * gradlew runFireline -PjdkPath=$JAVA_HOME -PscanDir=$scanDir
+ */
 task runFireline(type:Exec) {
     def javaHome = "java"
     def outDir = "${rootDir}/scanReport"
+    def scanDir = "${rootDir}"
     println buildConfig.jdkPath
     if (buildConfig.jdkPath != null && !buildConfig.jdkPath.equals("")){
         println "111"
         javaHome = buildConfig.jdkPath
     }
+    if (buildConfig.jdkPath != null && !buildConfig.scanDir.equals('')){
+        scanDir = scanDir + File.separator + buildConfig.scanDir
+    }
+
     println "rootDir:${rootDir}"
+    println "scanDir:${scanDir}"
     createDir(outDir)
     clearDir(outDir)
     if (isWindows()){
-        commandLine 'cmd' , '/c' , "java -jar ${rootDir}/fireline_1.6.11.jar -s=${rootDir}/app/src proj_name=androidphone -r=${outDir}"
+        println "windows"
+        commandLine 'cmd' , '/c' , "${javaHome} -jar ${rootDir}/fireline_1.6.11.jar -s=${scanDir} proj_name=androidphone -r=${outDir}"
     }else {
-        commandLine 'bash' , '-c' , "java -jar ${rootDir}/fireline_1.6.11.jar -s=${rootDir}/app/src proj_name=androidphone -r=${outDir}"
+        println "not windows"
+        commandLine 'bash' , '-c' , "${javaHome} -jar ${rootDir}/fireline_1.6.11.jar -s=${scanDir} proj_name=androidphone -r=${outDir}"
     }
     standardOutput = new ByteArrayOutputStream()
     ext.output = {

@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            return null;
+            return false;
         }
 
         @Override
