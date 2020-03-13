@@ -1,6 +1,7 @@
 package com.xiaoxiao.testrxjava;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             add(new Pair<String, Class<?>>("plugin", PluginActivity.class));
             add(new Pair<String, Class<?>>("coordinator", CoordinatorLayoutActivity.class));
             add(new Pair<String, Class<?>>("recyclerview", RecyclerViewActivity.class));
+            add(new Pair<String,Class<?>>("openThirdApp",null));
         }
     };
     @Override
@@ -100,7 +102,19 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-            }else {
+            } else if ("openThirdApp".equals(pair.first)){
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        String link = "pptv://page/player/halfscreen?type=live&sectionid=166433";
+                        String link = "pptv://page/cate/vine?name=%E5%BD%B1%E8%A7%86&vid=29325143";
+//                        String link = "pptv://page/cate/vine?name=%E5%BD%B1%E8%A7%86";
+//                        String link = "pptv://page/cate/vine";
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                        startActivity(intent);
+                    }
+                });
+            } else {
                 final Class<?> cls = pair.second;
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -126,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
             list.add(i+"");
         }
         List<String> b = list.subList(0,10);
+
+        boolean test = (true || false) && false;
+        Log.e("MainActivity1","test:" + test);
     }
 
     @Deprecated

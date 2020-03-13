@@ -1,6 +1,7 @@
 package com.xiaoxiao.testrxjava.actionBar;
 
 import android.app.ActionBar;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
@@ -12,6 +13,10 @@ import android.widget.EditText;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiaoxiao.testrxjava.R;
 
 /**
@@ -64,6 +69,22 @@ public class ActionBarActivity extends FragmentActivity{
         };
         et1.addTextChangedListener(watcher);
         et2.addTextChangedListener(watcher);
+
+        String imgUrl = "http://v.img.pplive.cn/2b/e3/2be31f7559bfa76461f962f6a897f810/1575275039346.jpg";
+        SimpleDraweeView img1 = findViewById(R.id.img_test1);
+        img1.setImageURI(imgUrl);
+
+        SimpleDraweeView img2 = findViewById(R.id.img_test2);
+        GenericDraweeHierarchy hierarchy = img2.getHierarchy();
+        if (hierarchy == null)
+        {
+            GenericDraweeHierarchyBuilder hierarchyBuilder = new GenericDraweeHierarchyBuilder(getResources());
+            hierarchy = hierarchyBuilder.build();
+            img2.setHierarchy(hierarchy);
+        }
+        hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.FOCUS_CROP);
+        hierarchy.setActualImageFocusPoint(new PointF(0,0));
+        img2.setImageURI(imgUrl);
     }
 
     @Override
