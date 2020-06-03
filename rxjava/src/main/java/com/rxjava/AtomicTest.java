@@ -19,10 +19,13 @@ public class AtomicTest {
     private static AtomicInteger count = new AtomicInteger(0);
 
     public static void main(String[] args){
+        String test = "aaaaa=";
+        String[] arr = test.split("=");
+        System.out.println("aaaaaa:" + arr.length);
+
         CountDownLatch countDownLatch = new CountDownLatch(num);
         Semaphore semaphore = new Semaphore(concurrentNum);
         ExecutorService exc = Executors.newCachedThreadPool();
-
         long curTime = System.currentTimeMillis();
         try {
             for (int i = 0; i < num;i++){

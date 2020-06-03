@@ -13,7 +13,7 @@ public class ConcurrentThread {
     /**
      * 保证所有ActionRunnable可以同时执行
      */
-    private static CountDownLatch start = new CountDownLatch(1);
+//    private static CountDownLatch start = new CountDownLatch(1);
 
     /**
      * main线程等待所有ActionRunnable执行完毕后再继续执行
@@ -27,7 +27,7 @@ public class ConcurrentThread {
             new Thread(new ActionRunnable(i),"Thread-" + i).start();
         }
 
-        start.countDown();
+//        start.countDown();
         try {
             end.await();
         } catch (InterruptedException e) {
@@ -46,11 +46,11 @@ public class ConcurrentThread {
 
         @Override
         public void run() {
-            try {
-                start.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                start.await();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
 
             try {
                 TimeUnit.SECONDS.sleep(delay);

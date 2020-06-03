@@ -1,12 +1,17 @@
 package com.xiaoxiao.testrxjava;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.os.PersistableBundle;
+import android.os.Process;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.xiaoxiao.entity.UserInfo;
 import com.xiaoxiao.testrxjava.actionBar.ActionBarActivity;
 import com.xiaoxiao.testrxjava.chatlist.ChatListActivity;
 import com.xiaoxiao.testrxjava.coordinatorlayout.CoordinatorLayoutActivity;
@@ -27,7 +33,14 @@ import com.xiaoxiao.testrxjava.lifecycle.LifecycleActivity;
 import com.xiaoxiao.testrxjava.service.ServiceActivity;
 import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
 import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
+import com.xiaoxiao.utils.LogUtils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
@@ -73,10 +86,12 @@ public class MainActivity extends AppCompatActivity {
             add(new Pair<String, Class<?>>("coordinator", CoordinatorLayoutActivity.class));
             add(new Pair<String, Class<?>>("recyclerview", RecyclerViewActivity.class));
             add(new Pair<String,Class<?>>("openThirdApp",null));
+            add(new Pair<String, Class<?>>("kill",null));
         }
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e(TAG,"onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ViewGroup rootView = (ViewGroup)findViewById(R.id.root_view);
@@ -107,13 +122,24 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 //                        String link = "pptv://page/player/halfscreen?type=live&sectionid=166433";
-                        String link = "pptv://page/cate/vine?name=%E5%BD%B1%E8%A7%86&vid=29325143";
+//                        String link = "pptv://page/cate/vine?name=%E5%BD%B1%E8%A7%86&vid=29325143";
+//                        String link = "pptv://page/player/halfscreen?type=live&sectionid=175081&utm=6211";
+                        String link = "suning://m.suning.com/index?utm_source=jrtt-zt&utm_medium=aj-tx1&utm_campaign=&adTypeCode=1002&adId=https%3A%2F%2Fc.m.suning.com%2Fphone2019.html&backurl=__back_url__&wap_compagin=&wap_content=&wap_medium=17732&wap_source=%25E6%2596%25B0%25E8%25A1%2597%25E5%258F%25A3%25E5%2588%25B8%25E6%25B4%25BB%25E5%258A%25A8%25E6%25BB%25A1%25E5%2587%258F&wap_term=&adId=https%3a%2f%2fc.m.suning.com%2fsnWhale.html%3fwx_navbar_transparent%3dtrue%23%2f";
 //                        String link = "pptv://page/cate/vine?name=%E5%BD%B1%E8%A7%86";
 //                        String link = "pptv://page/cate/vine";
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
                 });
+            } else if ("kill".equals(pair.first)){
+              button.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+//                      System.exit(0);
+                      Process.killProcess(Process.myPid());
+                  }
+              });
             } else {
                 final Class<?> cls = pair.second;
                 button.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
 
         boolean test = (true || false) && false;
         Log.e("MainActivity1","test:" + test);
+
+        UserInfo userInfo = new UserInfo("111","caixiaoxiao","xxx");
+        String str = Base64.encodeToString(serializeObj(userInfo),0);
+        deserializeObj(Base64.decode(str,0));
     }
 
     @Deprecated
@@ -184,6 +214,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e(TAG,"onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e(TAG,"onStop");
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.e(TAG,"destory");
@@ -193,6 +235,18 @@ public class MainActivity extends AppCompatActivity {
     public void finish() {
         super.finish();
         Log.e(TAG,"finish");
+    }
+
+    @Override
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode, Configuration newConfig) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
+        Log.e(TAG,"onMultiWindowModeChanged:" + isInMultiWindowMode);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.e(TAG,"onConfigurationChanged");
     }
 
     @Override
@@ -221,5 +275,70 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
         }
+    }
+
+    private byte[] serializeObj(Object obj){
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream objOut = null;
+        try {
+            objOut = new ObjectOutputStream(out);
+            objOut.writeObject(obj);
+            LogUtils.e("MainActivity--serializeObj",out.toString("UTF-8"));
+            return out.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (objOut != null){
+                try {
+                    objOut.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private Object deserializeObj(byte[] data){
+        ByteArrayInputStream in = new ByteArrayInputStream(data);
+        ObjectInputStream objIn = null;
+        try {
+            objIn = new ObjectInputStream(in);
+            Object user = objIn.readObject();
+            LogUtils.e("MainActivity--deserializeObj",user.toString());
+            return user;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }finally {
+            if (objIn != null){
+                try {
+                    objIn.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private byte[] parcelObj(Parcelable parcelable){
+        Parcel parcel = Parcel.obtain();
+        parcel.setDataPosition(0);
+        parcelable.writeToParcel(parcel,0);
+        byte[] bytes = parcel.marshall();
+        parcel.recycle();
+        return bytes;
     }
 }
