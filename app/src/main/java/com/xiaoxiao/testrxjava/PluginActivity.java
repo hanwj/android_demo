@@ -11,6 +11,7 @@ import com.caixiaoxiao.plugin.host.ProxyActivity;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 /**
  * 文件名: PluginActivity

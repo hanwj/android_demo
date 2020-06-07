@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,9 +28,11 @@ import com.xiaoxiao.testrxjava.lifecycle.LifecycleActivity;
 import com.xiaoxiao.testrxjava.service.ServiceActivity;
 import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
 import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
+import com.xiaoxiao.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.inject.Inject;
@@ -143,6 +146,13 @@ public class MainActivity extends AppCompatActivity {
 
         boolean test = (true || false) && false;
         Log.e("MainActivity1","test:" + test);
+
+        int pos = 2;
+        Locale[] locales = new Locale[]{Locale.getDefault(),Locale.CHINA,Locale.CHINESE,Locale.ENGLISH,Locale.FRANCE,Locale.JAPAN,Locale.KOREA,Locale.ROOT};
+        for (int i = 0; i < locales.length;i++){
+            String formatStr = String.format(locales[i],"%02d",pos);
+            LogUtils.e("MainActivity","locale--" + locales[i] + "--format--" + formatStr);
+        }
     }
 
     @Deprecated
@@ -162,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.e(TAG,"onPause");
+//        LocalBroadcastManager.getInstance()
     }
 
     @Override

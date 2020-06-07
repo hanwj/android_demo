@@ -5,6 +5,10 @@ import android.text.TextUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.lang.ref.WeakReference;
+import java.util.Optional;
+import java.util.concurrent.Executors;
+
 /**
  * Created by caixiaoxiao on 23/2/17.
  */
@@ -18,6 +22,8 @@ public class CustomEvent {
         }
         this.event = event;
         this.data = data;
+
+//        Executors.newCachedThreadPool()
     }
 
     public String getEvent(){

@@ -2,6 +2,7 @@ package com.xiaoxiao.testrxjava;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -10,6 +11,12 @@ import android.support.annotation.Nullable;
  * Created by caixiaoxiao on 12/7/16.
  */
 public class SimpleContentProvider extends ContentProvider{
+
+    private static UriMatcher uriMatcher;
+    static {
+        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    }
+
     @Override
     public boolean onCreate() {
         return false;

@@ -42,7 +42,8 @@
         <activity android:name=".testkeyboard.TestKeyBoardActivity"></activity>
         <activity android:name=".ListViewInScrollActivity"/>
         <activity android:name=".SurfaceViewActivity"/>
-        <activity android:name=".CanvasViewActivity"/>
+        <activity android:name=".CanvasViewActivity"
+            android:launchMode="singleInstance"/>
         <activity android:name=".simplePagerTab.PagerSlidingTabActivity"/>
         <activity android:name=".FrameLayoutActivity"/>
         <activity android:name=".VolleyActivity"/>

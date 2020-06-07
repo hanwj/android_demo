@@ -22,6 +22,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.AlignmentSpan;
 import android.text.style.BulletSpan;
@@ -38,11 +39,15 @@ import android.widget.TextView;
 //import com.xiaoxiao.testrxjava.dagger2.DaggerTestActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.DaggerMainActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.User;
+import com.xiaoxiao.testrxjava.databinding.ActivityTestBinding;
 import com.xiaoxiao.utils.FastBlur;
 import com.xiaoxiao.utils.LogUtils;
 import com.xiaoxiao.utils.Util;
 import com.xiaoxiao.view.MyCircleView;
 import com.xiaoxiao.view.VerticalCenterImageSpan;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 import javax.inject.Inject;
 
@@ -144,6 +149,10 @@ public class TestActivity extends AppCompatActivity {
         }, 1000);
 
         test();
+
+        String encryptStr = encryptStr("eqre123232132121321");
+        encryptStr(encryptStr);
+        bitOperate();
     }
 
     private void test() {
@@ -171,8 +180,42 @@ public class TestActivity extends AppCompatActivity {
         LogUtils.e("telehony","androidId:" + androidId);
     }
 
+    private String encryptStr(String str){
+        if (TextUtils.isEmpty(str)){
+            return "";
+        }
+        char[] chars = str.toCharArray();
+        for (int i = 0;i < chars.length;i++){
+            chars[i] = (char)((int)chars[i]^200);
+        }
+        String encryptStr = new String(chars);
+        LogUtils.e("TestActivity","encrypt:" + encryptStr);
+        return encryptStr;
+    }
+
+    private void bitOperate(){
+        int result = 0;
+        int[] arrs = new int[]{1,0,1,0,0,0,1,0};
+        int length = arrs.length;
+        for (int i = 0;i < length;i++){
+            result = result + arrs[i];
+            if (i != length-1){
+                result = result << 1;
+            }
+        }
+        LogUtils.e("TestActivity",result + "");
+        String binaryStr = Integer.toBinaryString(result);
+        LogUtils.e("TestActivity",Integer.toBinaryString(result));
+
+        result = Integer.parseInt(binaryStr,2);
+        LogUtils.e("TestActivity",result + "");
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public void test(Class clz){
     }
 }
