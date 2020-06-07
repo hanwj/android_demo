@@ -1,14 +1,18 @@
 package com.rxjava;
 
 import java.lang.management.ManagementFactory;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
 
 public class ThreadMain {
 
     public static void main(String[] args){
-        testThread();
-//        testAtomic();
+//        testThread();
+        testAtomic();
     }
 
     private static int a = 1;
@@ -60,5 +64,8 @@ public class ThreadMain {
             e.printStackTrace();
         }
         System.out.printf("total: %d\n",total.get());
+        Stack<String> stack = new Stack<>();
+//        Queue<String> queue = new LinkedList<>()
+        Thread.getAllStackTraces();
     }
 }

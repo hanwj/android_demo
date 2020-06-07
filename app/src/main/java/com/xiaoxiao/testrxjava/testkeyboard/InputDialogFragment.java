@@ -19,6 +19,11 @@ import com.xiaoxiao.utils.KeyboardStatusObserver;
 import com.xiaoxiao.utils.LogUtils;
 import com.xiaoxiao.utils.Util;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Created by caixiaoxiao on 8/12/17.
  */

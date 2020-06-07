@@ -14,7 +14,7 @@ public class Book implements Parcelable{
     private int price;
     private int serialNumber;
 
-    protected Book(Parcel in) {
+    private Book(Parcel in) {
         name = in.readString();
         price = in.readInt();
         serialNumber = in.readInt();
