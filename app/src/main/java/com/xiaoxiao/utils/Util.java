@@ -1,5 +1,6 @@
 package com.xiaoxiao.utils;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
@@ -164,5 +165,14 @@ public class Util {
             }
         }
         return false;
+    }
+
+    public static void test(Context context){
+        long maxMemory = Runtime.getRuntime().maxMemory();
+        LogUtils.e("Test","maxMemory:" + maxMemory);
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        int memory = activityManager.getMemoryClass();
+        LogUtils.e("Test","memory:" + memory);
+
     }
 }

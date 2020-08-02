@@ -19,23 +19,6 @@ public class Test{
 		System.out.println(UrlApi.url);
 		int[] arr = {3,2,1};
 		sortIntegers(arr);
-
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("1");
-		list.add("12");
-		list.add("123");
-		list.add("1234");
-		list.add("12345");
-		list.add("123456");
-		list.add("1234567");
-		list.add("12345678");
-		list.add("123456789");
-		for (String str : list) {
-			System.out.println(str);
-			if (str.length() < 4) {
-				list.remove(str);		
-			}	
-		}
 	}
 
 
@@ -61,8 +44,55 @@ public class Test{
     private static void printArr(int[] A){
     	String str = "[";
     	for (int i = 0; i < A.length;i++) {
-    		str = str + A[i] + ",";	
+    		str = str + A[i] + ",";
     	}
     	System.out.println(str + "]");
     }
+
+    private static void testReverseListNode(){
+		ListNode head;
+		head = new ListNode("1");
+		ListNode p = head;
+		for (int i = 0; i < 10; i++){
+			ListNode node = new ListNode(i+"");
+			p.next = node;
+			p = node;
+		}
+
+		ListNode.printListNode(head);
+		ListNode newHead = reverseListNode(head);
+		ListNode.printListNode(newHead);
+
+	}
+
+	private static ListNode reverseListNode(ListNode head){
+		if (head == null || head.next == null){
+			return head;
+		}
+		ListNode next = head.next;
+		head.next = null;
+		ListNode newHead = reverseListNode(next);
+		next.next = head;
+		return newHead;
+	}
+
+    static class ListNode {
+		public String value;
+		public ListNode next;
+
+		public ListNode(String value){
+			this.value = value;
+		}
+
+		public static void printListNode(ListNode head){
+			StringBuilder builder = new StringBuilder();
+			builder.append(head.value);
+			ListNode pNext = head.next;
+			while (pNext != null){
+				builder.append("->").append(pNext.value);
+				pNext = pNext.next;
+			}
+			System.out.println("ListNode:" + builder.toString());
+		}
+	}
 }

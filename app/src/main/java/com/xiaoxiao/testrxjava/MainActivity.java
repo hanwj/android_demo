@@ -5,6 +5,8 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
@@ -28,6 +30,7 @@ import com.xiaoxiao.testrxjava.daemon.DaemonActivity;
 import com.xiaoxiao.testrxjava.dagger2.DaggerMainActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.MainActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.User;
+import com.xiaoxiao.testrxjava.databinding.ActivityMainBinding;
 import com.xiaoxiao.testrxjava.floatwindow.MockClickWindow;
 import com.xiaoxiao.testrxjava.floatwindow.permission.FloatWindowManager;
 import com.xiaoxiao.testrxjava.lifecycle.LifecycleActivity;
@@ -35,6 +38,7 @@ import com.xiaoxiao.testrxjava.service.ServiceActivity;
 import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
 import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
 import com.xiaoxiao.utils.LogUtils;
+import com.xiaoxiao.utils.Util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -147,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        System.gc();
                         Intent intent = new Intent(MainActivity.this,cls);
                         startActivity(intent);
                     }
@@ -182,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
         UserInfo userInfo = new UserInfo("111","caixiaoxiao","xxx");
         String str = Base64.encodeToString(serializeObj(userInfo),0);
         deserializeObj(Base64.decode(str,0));
+
+        Util.test(this);
     }
 
     @Deprecated

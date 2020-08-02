@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -71,7 +72,33 @@ public class TestIOActivity extends FragmentActivity {
         return  null;
     }
 
-    private void writeToFile(String fileName){
+    private void writeToFile(String srcFileName,String destFileName){
+        FileInputStream in = null;
+        FileOutputStream out = null;
+        try {
+            in = new FileInputStream(srcFileName);
+            out = new FileOutputStream(destFileName);
+            int c;
+            while ((c = in.read()) != -1){
+                out.write(c);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close(in);
+            close(out);
+        }
+    }
 
+    private void close(Closeable closeable){
+        if (closeable != null){
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
