@@ -184,7 +184,8 @@ task compressResByPngquant(type: Exec){
 dependencies {
     //    compile fileTree(dir: 'libs', include: ['*.jar'])
     //    compile(name:'madlib', ext:'aar')
-//    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
+
     implementation project(path: ':pure2D',configuration: 'default')
     implementation project(path: ':pluginhost')
     implementation 'com.android.support:appcompat-v7:26.0.0'
@@ -199,7 +200,6 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.2'
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     implementation 'com.google.dagger:dagger:2.2'
-    //    compile 'com.longzhu.sdk:pure2D:1.0.9'
     implementation 'com.facebook.fresco:fresco:1.11.0'
     implementation 'com.facebook.fresco:animated-gif:1.11.0'
     implementation 'com.android.support:cardview-v7:26.0.0'

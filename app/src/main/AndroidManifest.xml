@@ -43,18 +43,7 @@
         <activity
             android:name=".TestActivity"
             android:label="anim">
-            <tools:validation testUrl="http://www.virgox.cn/test" />
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="http"
-                    android:host="www.virgox.cn"
-                    android:pathPrefix="/test" />
-            </intent-filter>
         </activity>
         <activity android:name=".eventbus.EventBusActivity" />
         <activity android:name=".service.ServiceActivity"></activity>
@@ -74,7 +63,18 @@
             android:name=".DragonAnimActivity"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".chatlist.ChatListActivity" />
-        <activity android:name=".WebActivity" />
+        <activity android:name=".WebActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.APP_BROWSER"/>
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:host="www.pptv.com"/>
+                <data android:host="www.baidu.com"/>
+            </intent-filter>
+        </activity>
 
         <activity android:name=".PluginActivity" />
         <activity android:name="com.caixiaoxiao.plugin.host.ProxyActivity" />

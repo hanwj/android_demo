@@ -37,11 +37,13 @@ import com.xiaoxiao.utils.LogUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -121,14 +123,9 @@ public class MainActivity extends AppCompatActivity {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        String link = "pptv://page/player/halfscreen?type=live&sectionid=166433";
-//                        String link = "pptv://page/cate/vine?name=%E5%BD%B1%E8%A7%86&vid=29325143";
-//                        String link = "pptv://page/player/halfscreen?type=live&sectionid=175081&utm=6211";
-                        String link = "suning://m.suning.com/index?utm_source=jrtt-zt&utm_medium=aj-tx1&utm_campaign=&adTypeCode=1002&adId=https%3A%2F%2Fc.m.suning.com%2Fphone2019.html&backurl=__back_url__&wap_compagin=&wap_content=&wap_medium=17732&wap_source=%25E6%2596%25B0%25E8%25A1%2597%25E5%258F%25A3%25E5%2588%25B8%25E6%25B4%25BB%25E5%258A%25A8%25E6%25BB%25A1%25E5%2587%258F&wap_term=&adId=https%3a%2f%2fc.m.suning.com%2fsnWhale.html%3fwx_navbar_transparent%3dtrue%23%2f";
-//                        String link = "pptv://page/cate/vine?name=%E5%BD%B1%E8%A7%86";
-//                        String link = "pptv://page/cate/vine";
+                        String link = "http://www.virgo.com";
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
                 });
@@ -173,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
         UserInfo userInfo = new UserInfo("111","caixiaoxiao","xxx");
         String str = Base64.encodeToString(serializeObj(userInfo),0);
         deserializeObj(Base64.decode(str,0));
+        ensureCapacity();
+        test();
     }
 
     @Deprecated
@@ -340,5 +339,27 @@ public class MainActivity extends AppCompatActivity {
         byte[] bytes = parcel.marshall();
         parcel.recycle();
         return bytes;
+    }
+
+    private void ensureCapacity(){
+        int newCapacity = (22 << 1) + 2;
+        LogUtils.e("MainActivity#ensureCapacity",newCapacity + "");
+    }
+
+    private void test(){
+        List<String> strList = new ArrayList<>();
+        strList.add("1");
+        strList.add("2");
+        strList.add("3");
+        strList.add("4");
+        strList.add("5");
+        strList.add("6");
+        strList.add("7");
+
+        Iterator<String> stringIterator = strList.iterator();
+        while (stringIterator.hasNext()){
+            String a = stringIterator.next();
+            LogUtils.e("MainActivity#test","i:"+ a);
+        }
     }
 }

@@ -106,7 +106,7 @@ public class CircleProgressBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         // 设置圆心实心背景
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius, bgPaint);
+        canvas.drawCircle(getWidth() >> 1, getHeight()  >> 2, radius, bgPaint);
 
         txtWidth = textPaint.measureText(txtContent, 0, txtContent.length());
         canvas.drawText(txtContent, getWidth() / 2 - txtWidth / 2, getHeight() / 2 + txtHeight / 4, textPaint);

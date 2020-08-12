@@ -17,10 +17,15 @@ import rx.schedulers.Schedulers;
 
 public class RxMain {
     public static void main(String[] args){
+        for (String p: args) {
+            System.out.println(p);
+        }
         Observable<String> myObservable = Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext("Hello,RxJava");
+                subscriber.onNext("Hello,RxJava11");
+                subscriber.onNext("Hello,RxJava12");
+                subscriber.onNext("Hello,RxJava13");
                 subscriber.onCompleted();
             }
         });
