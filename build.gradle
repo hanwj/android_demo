@@ -2,14 +2,14 @@
 
 buildscript {
     repositories {
-//        google()
-        maven { url"https://dl.google.com/dl/android/maven2/" }
-        jcenter()
+        google()
+//        jcenter()
+//        maven { url"https://dl.google.com/dl/android/maven2/" }
 //        jcenter(){url 'http://jcenter.bintray.com/'}
-//        google()
+        maven { url"https://maven.aliyun.com/repository/public/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.6.3'
 //        classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.2.0'
@@ -20,10 +20,12 @@ buildscript {
 
 allprojects {
     repositories {
-//        google()
-        maven { url"https://dl.google.com/dl/android/maven2/" }
-        jcenter()
+        google()
+//        jcenter()
+//        maven { url"https://dl.google.com/dl/android/maven2/" }
 //        jcenter(){url 'http://jcenter.bintray.com/'}
+
+        maven { url"https://maven.aliyun.com/repository/public/" }
     }
 }
 

@@ -1,11 +1,14 @@
 package com.xiaoxiao.view;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ListView;
 import android.widget.ScrollView;
+
+import com.xiaoxiao.utils.LogUtils;
 
 /**
  * Created by caixiaoxiao on 14/7/16.
@@ -43,6 +46,7 @@ public class MyScrollView extends ScrollView{
         if (!isScroll(ev)){
             return false;
         }
+        LogUtils.e("MyScrollView","ev:" + ev);
         return super.onInterceptTouchEvent(ev);
     }
 
@@ -57,6 +61,10 @@ public class MyScrollView extends ScrollView{
         if (mListView != null){
             int [] location = new int[2];
             mListView.getLocationOnScreen(location);
+            LogUtils.e("MyScrollView","location:" + location[0] + "," + location[1]);
+            Rect rect = new Rect();
+            mListView.getGlobalVisibleRect(rect);
+            LogUtils.e("MyScrollView","rect:" + rect);
             if (ev.getRawX() >= location[0] && ev.getRawX() <= location[0] + mListView.getWidth()
                     && ev.getRawY() >= location[1] && ev.getRawY() <= location[1] + mListView.getHeight()){
                 if (mListView.getAdapter() != null && mListView.getAdapter().getCount() > 0){

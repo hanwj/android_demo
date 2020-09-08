@@ -91,26 +91,33 @@ android {
 //        }
 //    }
 
-    flavorDimensions "market", "channel"
+    flavorDimensions "market"
+//    flavorDimensions "market", "channel"
     productFlavors {
         marketA {
             dimension "market"
         }
 
+//        marketa {
+//            dimension "market"
+//        }
+
         marketB {
             dimension "market"
         }
 
-        channelA {
-            dimension "channel"
-        }
-
-        channelB {
-            dimension "channel"
-        }
+//        channelA {
+//            dimension "channel"
+//        }
+//
+//        channelB {
+//            dimension "channel"
+//        }
     }
 //    dynamicFeatures = [":featurea"]
-
+    viewBinding {
+        enabled = true
+    }
 
 }
 
@@ -181,6 +188,33 @@ task compressResByPngquant(type: Exec){
     commandLine 'bash',"-c", cmd
 }
 
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith('transformNativeLibsWithMergeJniLibsFor')) {
+        // transformNativeLibsWithMergeJniLibsForPrdRelease
+        task.doLast({
+            println '------merge jni lib start------'
+            def pathStr = task.name.replace('transformNativeLibsWithMergeJniLibsFor', '');
+            def flavor = 'prd'
+            def env = 'Release'
+            if (pathStr.endsWith('Debug')) {
+                env = 'Debug'
+            } else if (pathStr.endsWith('Release')) {
+                env = 'Release'
+            } else {
+                println "------merge jni lib fail: no matched buid type------"
+                return;
+            }
+            flavor = pathStr.replace(env, '')
+            if (!flavor.equals('')){
+                flavor = flavor.substring(0,1).toLowerCase() + flavor.substring(1)
+            }
+            env = env.toLowerCase()
+//            mergeJniLib(flavor, env);
+            println "------merge jni lib success------"
+        })
+    }
+}
+
 dependencies {
     //    compile fileTree(dir: 'libs', include: ['*.jar'])
     //    compile(name:'madlib', ext:'aar')
@@ -203,5 +237,7 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:1.11.0'
     implementation 'com.facebook.fresco:animated-gif:1.11.0'
     implementation 'com.android.support:cardview-v7:26.0.0'
-//    compile 'org.slf4j:slf4j-jdk14:1.7.14'
+    //    compile 'org.slf4j:slf4j-jdk14:1.7.14'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+//    implementation "androidx.activity:activity:1.1.0"
 }

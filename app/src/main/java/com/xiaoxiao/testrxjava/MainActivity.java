@@ -5,9 +5,12 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.os.Process;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +30,7 @@ import com.xiaoxiao.testrxjava.daemon.DaemonActivity;
 import com.xiaoxiao.testrxjava.dagger2.DaggerMainActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.MainActivityComponent;
 import com.xiaoxiao.testrxjava.dagger2.User;
+import com.xiaoxiao.testrxjava.databinding.ActivityMainBinding;
 import com.xiaoxiao.testrxjava.floatwindow.MockClickWindow;
 import com.xiaoxiao.testrxjava.floatwindow.permission.FloatWindowManager;
 import com.xiaoxiao.testrxjava.lifecycle.LifecycleActivity;
@@ -34,6 +38,7 @@ import com.xiaoxiao.testrxjava.service.ServiceActivity;
 import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
 import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
 import com.xiaoxiao.utils.LogUtils;
+import com.xiaoxiao.utils.Util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -45,6 +50,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.inject.Inject;
@@ -142,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        System.gc();
                         Intent intent = new Intent(MainActivity.this,cls);
                         startActivity(intent);
                     }
@@ -167,11 +174,20 @@ public class MainActivity extends AppCompatActivity {
         boolean test = (true || false) && false;
         Log.e("MainActivity1","test:" + test);
 
+        int pos = 2;
+        Locale[] locales = new Locale[]{Locale.getDefault(),Locale.CHINA,Locale.CHINESE,Locale.ENGLISH,Locale.FRANCE,Locale.JAPAN,Locale.KOREA,Locale.ROOT};
+        for (int i = 0; i < locales.length;i++){
+            String formatStr = String.format(locales[i],"%02d",pos);
+            LogUtils.e("MainActivity","locale--" + locales[i] + "--format--" + formatStr);
+        }
+
         UserInfo userInfo = new UserInfo("111","caixiaoxiao","xxx");
         String str = Base64.encodeToString(serializeObj(userInfo),0);
         deserializeObj(Base64.decode(str,0));
         ensureCapacity();
         test();
+
+        Util.test(this);
     }
 
     @Deprecated
@@ -191,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.e(TAG,"onPause");
+//        LocalBroadcastManager.getInstance()
     }
 
     @Override
