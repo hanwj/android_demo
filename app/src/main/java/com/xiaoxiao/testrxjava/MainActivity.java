@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
+import android.os.SystemClock;
 import android.support.v4.content.LocalBroadcastManager;
 import android.os.Process;
 import android.support.v4.util.Pair;
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     User user2;
 
+    private long lastTime = -1;
+
     private List<Pair<String,Class<?>>> funcList = new ArrayList<Pair<String,Class<?>>>(){
         {
             add(new Pair<String, Class<?>>("toolbar",ToolbarActivity.class));
@@ -99,7 +102,8 @@ public class MainActivity extends AppCompatActivity {
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e(TAG,"onCreate");
+        lastTime = System.currentTimeMillis();
+        LogUtils.e(TAG,"onCreate start");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ViewGroup rootView = (ViewGroup)findViewById(R.id.root_view);
@@ -171,9 +175,6 @@ public class MainActivity extends AppCompatActivity {
         }
         List<String> b = list.subList(0,10);
 
-        boolean test = (true || false) && false;
-        Log.e("MainActivity1","test:" + test);
-
         int pos = 2;
         Locale[] locales = new Locale[]{Locale.getDefault(),Locale.CHINA,Locale.CHINESE,Locale.ENGLISH,Locale.FRANCE,Locale.JAPAN,Locale.KOREA,Locale.ROOT};
         for (int i = 0; i < locales.length;i++){
@@ -188,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
         test();
 
         Util.test(this);
+        LogUtils.e(TAG,"onCreate end:" + elpasedTime());
     }
 
     @Deprecated
@@ -199,75 +201,87 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("MainActivity1", user.getName());
-        Log.e(TAG,"onResume");
+        LogUtils.e(TAG,"onResume : " + elpasedTime());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e(TAG,"onPause");
+        LogUtils.e(TAG,"onPause : " + elpasedTime());
 //        LocalBroadcastManager.getInstance()
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
-        Log.e(TAG,"onSaveInstanceState1");
+        LogUtils.e(TAG,"onSaveInstanceState1");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.e(TAG,"onSaveInstanceState2");
+        LogUtils.e(TAG,"onSaveInstanceState2");
     }
 
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.e(TAG,"onRestoreInstanceState2");
+        LogUtils.e(TAG,"onRestoreInstanceState2");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e(TAG,"onStart");
+        LogUtils.e(TAG,"onStart : " + elpasedTime());
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e(TAG,"onStop");
+        LogUtils.e(TAG,"onStop : " + elpasedTime());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e(TAG,"destory");
+        LogUtils.e(TAG,"destory : " + elpasedTime());
     }
 
     @Override
     public void finish() {
         super.finish();
-        Log.e(TAG,"finish");
+        LogUtils.e(TAG,"finish : " + elpasedTime());
     }
 
     @Override
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode, Configuration newConfig) {
         super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
-        Log.e(TAG,"onMultiWindowModeChanged:" + isInMultiWindowMode);
+        LogUtils.e(TAG,"onMultiWindowModeChanged:" + isInMultiWindowMode);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Log.e(TAG,"onConfigurationChanged");
+        LogUtils.e(TAG,"onConfigurationChanged");
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        LogUtils.e(TAG,"onWindowFocusChanged : " + elpasedTime());
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        LogUtils.e(TAG,"onAttachedToWindow : " + elpasedTime());
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        LogUtils.e(TAG,"onDetachedFromWindow : " + elpasedTime());
     }
 
     private class MyTask extends AsyncTask<String,Integer,Boolean>{
@@ -378,5 +392,12 @@ public class MainActivity extends AppCompatActivity {
             String a = stringIterator.next();
             LogUtils.e("MainActivity#test","i:"+ a);
         }
+    }
+
+    private String elpasedTime(){
+        long currTime = System.currentTimeMillis();
+        long elpasedTime = currTime - lastTime;
+        lastTime = currTime;
+        return "elpasedTime " + elpasedTime;
     }
 }

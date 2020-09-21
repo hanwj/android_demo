@@ -49,7 +49,7 @@ android {
     defaultConfig {
         applicationId "com.xiaoxiao.testrxjava"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -222,8 +222,8 @@ dependencies {
 
     implementation project(path: ':pure2D',configuration: 'default')
     implementation project(path: ':pluginhost')
-    implementation 'com.android.support:appcompat-v7:26.0.0'
-    implementation 'com.android.support:design:26.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
     implementation 'org.greenrobot:eventbus:3.0.0'
     //    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.2'
     implementation 'com.jakewharton:butterknife:8.4.0'
@@ -236,8 +236,8 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.2'
     implementation 'com.facebook.fresco:fresco:1.11.0'
     implementation 'com.facebook.fresco:animated-gif:1.11.0'
-    implementation 'com.android.support:cardview-v7:26.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
     //    compile 'org.slf4j:slf4j-jdk14:1.7.14'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.1'
 //    implementation "androidx.activity:activity:1.1.0"
 }

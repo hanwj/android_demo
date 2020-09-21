@@ -11,6 +11,6 @@ import junit.framework.TestCase;
 public class NullUtilTest extends TestCase {
 
     public void testIsNull() {
-//        NullUtil.isNull()
+        NullUtil.isNull();
     }
 }

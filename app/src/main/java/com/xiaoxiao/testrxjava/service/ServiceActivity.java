@@ -132,4 +132,8 @@ public class ServiceActivity extends FragmentActivity {
             }
         });
     }
+
+    private void testMessenger(){
+//        Messenger messenger = new Messenger();
+    }
 }
