@@ -1,7 +1,9 @@
 package com.xiaoxiao.testrxjava;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ import com.xiaoxiao.testrxjava.service.ServiceActivity;
 import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
 import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
 import com.xiaoxiao.utils.LogUtils;
+import com.xiaoxiao.utils.SystemBarUtil;
 import com.xiaoxiao.utils.Util;
 
 import java.io.ByteArrayInputStream;
@@ -48,6 +51,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -98,14 +103,17 @@ public class MainActivity extends AppCompatActivity {
             add(new Pair<String, Class<?>>("recyclerview", RecyclerViewActivity.class));
             add(new Pair<String,Class<?>>("openThirdApp",null));
             add(new Pair<String, Class<?>>("kill",null));
+            add(new Pair<String, Class<?>>("test",null));
         }
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         lastTime = System.currentTimeMillis();
         LogUtils.e(TAG,"onCreate start");
+//        Debug.startMethodTracing();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SystemBarUtil.setAndroidNativeLightStatusBar(getWindow(),false);
         ViewGroup rootView = (ViewGroup)findViewById(R.id.root_view);
         for (Pair<String,Class<?>> pair : funcList){
             Button button = new Button(this);
@@ -147,6 +155,18 @@ public class MainActivity extends AppCompatActivity {
                       Process.killProcess(Process.myPid());
                   }
               });
+            } else if ("test".equals(pair.first)){
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            Util.printDeviceInfo(MainActivity.this);
+                            getPackageManager().getPackageInfo("com.pplive.androidphone", PackageManager.GET_ACTIVITIES);
+                        } catch (PackageManager.NameNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             } else {
                 final Class<?> cls = pair.second;
                 button.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +210,19 @@ public class MainActivity extends AppCompatActivity {
 
         Util.test(this);
         LogUtils.e(TAG,"onCreate end:" + elpasedTime());
+
+        getColor();
+
+        tableSizeFor(67108865);
+
+        LogUtils.e(TAG,"byte of abc:" + "abc".getBytes().length);
+        LogUtils.e(TAG,"byte of abc你好:" + "abc你好".getBytes().length);
+
+        List<String> testList = new ArrayList<>();
+        Type type = testList.getClass().getGenericSuperclass();
+        LogUtils.e(TAG,"list<String>:" + type);
+        LogUtils.e(TAG,"list<String>:" + ((ParameterizedType)type).getActualTypeArguments()[0]);
+
     }
 
     @Deprecated
@@ -202,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         LogUtils.e(TAG,"onResume : " + elpasedTime());
+//        Debug.stopMethodTracing();
     }
 
     @Override
@@ -400,4 +434,36 @@ public class MainActivity extends AppCompatActivity {
         lastTime = currTime;
         return "elpasedTime " + elpasedTime;
     }
+
+    private int getColor(){
+        int color = Color.parseColor("#70ffffff");
+        float alphaPercent = 1f;
+        int rgb = color & 0xffffff;
+        int alpha = color >>> 24;
+        LogUtils.e("MainActivity","rgb:" + Integer.toHexString(rgb));
+        LogUtils.e("MainActivity","alpha:" + alpha);
+        alpha = alpha == 0 ? 256 : alpha;
+
+        int newAlpha = (int) (alpha * alphaPercent);
+        LogUtils.e("MainActivity","newAlpha:" + newAlpha);
+        int newColor = (newAlpha << 24) | rgb;
+        LogUtils.e("MainActivity","newColor:" + Integer.toHexString(newColor));
+        return newColor;
+    }
+
+    private int tableSizeFor(int cap) {
+        int MAXIMUM_CAPACITY = 1 << 30;
+        LogUtils.e("MainActivity",cap + " : " + Integer.toBinaryString(cap));
+        int n = cap - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+
+        int result = (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+        LogUtils.e("MainActivity",result + " : " + Integer.toBinaryString(result));
+        return result;
+    }
+
 }

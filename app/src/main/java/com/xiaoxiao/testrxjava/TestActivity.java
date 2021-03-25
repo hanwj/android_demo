@@ -11,6 +11,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Messenger;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -28,6 +31,7 @@ import android.text.style.AlignmentSpan;
 import android.text.style.BulletSpan;
 import android.text.style.ImageSpan;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -48,6 +52,7 @@ import com.xiaoxiao.view.VerticalCenterImageSpan;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.LinkedList;
 
 import javax.inject.Inject;
 
@@ -217,5 +222,6 @@ public class TestActivity extends AppCompatActivity {
     }
 
     public void test(Class clz){
+        Handler handler = new Handler();
     }
 }

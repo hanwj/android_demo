@@ -1,11 +1,17 @@
 package com.xiaoxiao.utils;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.ViewConfiguration;
 
@@ -174,5 +180,40 @@ public class Util {
         int memory = activityManager.getMemoryClass();
         LogUtils.e("Test","memory:" + memory);
 
+    }
+
+    public static void printDeviceInfo(Context context){
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            if (context instanceof Activity){
+                ActivityCompat.requestPermissions((Activity) context,new String[]{Manifest.permission.READ_PHONE_STATE},1);
+            }
+            return ;
+        }
+        StringBuilder infoBuilder = new StringBuilder();
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        infoBuilder.append("deviceId : ").append(tm.getDeviceId()).append("\n");
+        infoBuilder.append("androidid : ").append(Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID)).append("\n");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            infoBuilder.append("imei : ").append(tm.getImei()).append("\n");
+            infoBuilder.append("meid : ").append(tm.getMeid()).append("\n");
+        }
+        infoBuilder.append("imsi : ").append(tm.getSubscriberId()).append("\n");
+        String[] abis;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            abis = Build.SUPPORTED_ABIS;
+        }else {
+            abis = new String[]{Build.CPU_ABI,Build.CPU_ABI2};
+        }
+        infoBuilder.append("cpu指令 : ");
+        for (String abi : abis){
+            infoBuilder.append(abi).append(",");
+        }
+        infoBuilder.append("\n");
+
+        LogUtils.e("Util","  \n-------DeviceInfo start-------\n" + infoBuilder.toString() + "\n-------DeviceInfo end-------");
+
+        String str = "1-1";
+        String[] arr = str.split(",");
     }
 }

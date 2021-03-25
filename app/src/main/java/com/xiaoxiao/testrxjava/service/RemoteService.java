@@ -53,7 +53,7 @@ public class RemoteService extends Service{
     @Override
     public IBinder onBind(Intent intent) {
         Log.e(TAG,"onBind");
-        return mBinder;
+        return mBinder.asBinder();
     }
 
     @Override

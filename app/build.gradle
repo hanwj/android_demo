@@ -240,4 +240,7 @@ dependencies {
     //    compile 'org.slf4j:slf4j-jdk14:1.7.14'
     implementation 'com.android.support.constraint:constraint-layout:2.0.1'
 //    implementation "androidx.activity:activity:1.1.0"
+
+    api 'com.parse.bolts:bolts-tasks:1.4.0'
+    api 'com.parse.bolts:bolts-applinks:1.4.0'
 }
