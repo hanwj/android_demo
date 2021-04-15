@@ -60,4 +60,9 @@ public class MyListView extends ListView implements View.OnTouchListener,Gesture
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         return false;
     }
+
+    @Override
+    public boolean shouldDelayChildPressedState() {
+        return super.shouldDelayChildPressedState();
+    }
 }

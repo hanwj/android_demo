@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 
+import com.xiaoxiao.utils.LogUtils;
 import com.xiaoxiao.view.MyScrollView;
 
 import java.util.ArrayList;
@@ -30,6 +31,13 @@ public class ListViewInScrollActivity extends FragmentActivity{
 
 
         mList.setAdapter(new ListAdapter(this, new ArrayList<String>()));
+
+        findViewById(R.id.test_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtils.e("TestView","onClick");
+            }
+        });
     }
 
     class ListAdapter extends BaseAdapter{

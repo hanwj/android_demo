@@ -6,11 +6,12 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 
 /**
  * Created by caixiaoxiao on 12/7/16.
  */
-public class SimpleContentProvider extends ContentProvider{
+public class SimpleContentProvider extends FileProvider {
 
     private static UriMatcher uriMatcher;
     static {

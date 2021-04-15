@@ -96,11 +96,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".service.LocalService"></service>
-        <service android:name=".service.ForegroundService"></service>
+        <service android:name=".service.LocalService" />
+        <service android:name=".service.ForegroundService" />
         <service
-            android:name=".service.RemoteService"
-            android:process=":remote"></service>
+            android:name=".service.RemoteService"/>
     </application>
 
 </manifest>

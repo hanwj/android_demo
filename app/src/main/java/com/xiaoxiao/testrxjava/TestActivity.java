@@ -82,6 +82,7 @@ public class TestActivity extends AppCompatActivity {
                 int id = v.getId();
                 if (id == R.id.scale_btn) {
                     txtView.startAnimation(scaleAnim);
+                    test();
                 } else if (id == R.id.translate_btn) {
                     txtView.startAnimation(moveAnim);
                 } else if (id == R.id.scroll1) {
@@ -153,8 +154,6 @@ public class TestActivity extends AppCompatActivity {
             }
         }, 1000);
 
-        test();
-
         String encryptStr = encryptStr("eqre123232132121321");
         encryptStr(encryptStr);
         bitOperate();
@@ -221,7 +220,16 @@ public class TestActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public void test(Class clz){
-        Handler handler = new Handler();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtils.e("TestActivity","onResume");
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogUtils.e("TestActivity","onPause");
+    }
+
 }

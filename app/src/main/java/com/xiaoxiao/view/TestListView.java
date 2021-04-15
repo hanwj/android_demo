@@ -24,6 +24,8 @@ public class TestListView extends ListView{
 
     public TestListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        requestLayout();
+        invalidate();
     }
 
     @Override
@@ -43,4 +45,10 @@ public class TestListView extends ListView{
     }
 
 
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        boolean touch = super.onInterceptTouchEvent(ev);
+        LogUtils.d("TestListView:onInterceptTouchEvent","action:"+ ev.getAction() + ",touch:" + touch);
+        return touch;
+    }
 }

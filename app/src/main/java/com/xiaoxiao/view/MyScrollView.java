@@ -27,12 +27,22 @@ public class MyScrollView extends ScrollView{
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        LogUtils.e("MyScrollView","dispatchTouchEvent#ev:" + ev);
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        if (ev.getAction() != MotionEvent.ACTION_MOVE){
+            LogUtils.e("MyScrollView","onTouchEvent#ev:" + ev);
+        }
         return super.onTouchEvent(ev);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        LogUtils.e("MyScrollView","onInterceptTouchEvent#ev:" + ev);
         switch(ev.getAction()){
             case MotionEvent.ACTION_DOWN:
                 mLastTouchPosY = ev.getRawY();
@@ -44,10 +54,12 @@ public class MyScrollView extends ScrollView{
                 break;
         }
         if (!isScroll(ev)){
+            LogUtils.e("MyScrollView","onInterceptTouchEvent#1");
             return false;
         }
-        LogUtils.e("MyScrollView","ev:" + ev);
-        return super.onInterceptTouchEvent(ev);
+        boolean touch = super.onInterceptTouchEvent(ev);
+        LogUtils.e("MyScrollView","onInterceptTouchEvent#2:" + touch);
+        return touch;
     }
 
     private ListView mListView;
@@ -61,10 +73,10 @@ public class MyScrollView extends ScrollView{
         if (mListView != null){
             int [] location = new int[2];
             mListView.getLocationOnScreen(location);
-            LogUtils.e("MyScrollView","location:" + location[0] + "," + location[1]);
+//            LogUtils.e("MyScrollView","location:" + location[0] + "," + location[1]);
             Rect rect = new Rect();
             mListView.getGlobalVisibleRect(rect);
-            LogUtils.e("MyScrollView","rect:" + rect);
+//            LogUtils.e("MyScrollView","rect:" + rect);
             if (ev.getRawX() >= location[0] && ev.getRawX() <= location[0] + mListView.getWidth()
                     && ev.getRawY() >= location[1] && ev.getRawY() <= location[1] + mListView.getHeight()){
                 if (mListView.getAdapter() != null && mListView.getAdapter().getCount() > 0){

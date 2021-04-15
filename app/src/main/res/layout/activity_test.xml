@@ -44,7 +44,7 @@
         android:layout_height="100dp"
         android:background="@android:color/darker_gray">
 
-        <Button
+        <com.xiaoxiao.view.TestView
             android:id="@+id/scale_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

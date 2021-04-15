@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import com.xiaoxiao.utils.LogUtils;
 
@@ -14,7 +15,7 @@ import com.xiaoxiao.utils.LogUtils;
  * 修改人: caixiaoxiao
  * 日期: 2018/11/13
  */
-public class TestView extends View {
+public class TestView extends Button {
     public TestView(Context context) {
         super(context);
     }
@@ -30,7 +31,7 @@ public class TestView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean touch = super.onTouchEvent(event);
-        LogUtils.e("TestView:onTouchEvent","action:"+ event.getAction() + ",touch:" + touch);
+        LogUtils.e("TestView:onTouchEvent","touch:"+ touch + ",event:" + event);
 //        return super.onTouchEvent(event);
         return touch;
     }
@@ -38,7 +39,7 @@ public class TestView extends View {
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         boolean touch = super.dispatchTouchEvent(event);
-        LogUtils.e("TestView:dispatchTouchEvent","action:"+ event.getAction() + ",touch:" + touch);
+        LogUtils.e("TestView:dispatchTouchEvent","touch:"+ touch + ",event:" + event);
 //        return super.onTouchEvent(event);
         return touch;
     }
