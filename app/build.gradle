@@ -42,12 +42,25 @@ def clearDir(String path) {
     }
 }
 
+def keyStorePath = System.getenv("KEYSTORE_PATH")
+def keyStoreConfig = new Properties()
+println "read properties${keyStorePath}"
+if (keyStorePath != null && !keyStorePath.equals("")){
+    keyStoreConfig.load(new FileInputStream(keyStorePath))
+    println keyStoreConfig
+}else {
+    keyStoreConfig.put("storeFile","../app.keystore")
+    keyStoreConfig.put("storePassword","virgox")
+    keyStoreConfig.put("keyAlias","xiaoxiao")
+    keyStoreConfig.put("keyPassword","virgox")
+}
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.xiaoxiao.testrxjava"
+//        applicationId "com.meituan.qcs.meishi"
         minSdkVersion 15
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -55,26 +68,21 @@ android {
     }
 
     signingConfigs {
-        debug {
-            // No debug config
-            storeFile file("../app.keystore")
-            storePassword "virgox"
-            keyAlias "xiaoxiao"
-            keyPassword "virgox"
-        }
         release {
-            storeFile file("../app.keystore")
-            storePassword "virgox"
-            keyAlias "xiaoxiao"
-            keyPassword "virgox"
+            storeFile file(keyStoreConfig['storeFile'])
+            storePassword keyStoreConfig['storePassword']
+            keyAlias keyStoreConfig['keyAlias']
+            keyPassword keyStoreConfig['keyPassword']
         }
     }
 
     buildTypes {
         debug {
+            signingConfig signingConfigs.release
             resValue "string", "app_name", "测试debug"
         }
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             resValue "string", "app_name", "测试release"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -91,20 +99,20 @@ android {
 //        }
 //    }
 
-    flavorDimensions "market"
+//    flavorDimensions "market"
 //    flavorDimensions "market", "channel"
     productFlavors {
-        marketA {
-            dimension "market"
-        }
+//        marketA {
+//            dimension "market"
+//        }
 
 //        marketa {
 //            dimension "market"
 //        }
 
-        marketB {
-            dimension "market"
-        }
+//        marketB {
+//            dimension "market"
+//        }
 
 //        channelA {
 //            dimension "channel"
@@ -243,4 +251,6 @@ dependencies {
 
     api 'com.parse.bolts:bolts-tasks:1.4.0'
     api 'com.parse.bolts:bolts-applinks:1.4.0'
+
+    implementation 'com.google.code.gson:gson:2.8.2'
 }

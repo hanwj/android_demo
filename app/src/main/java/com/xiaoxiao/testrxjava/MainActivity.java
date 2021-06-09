@@ -25,6 +25,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.xiaoxiao.entity.UserInfo;
 import com.xiaoxiao.testrxjava.actionBar.ActionBarActivity;
 import com.xiaoxiao.testrxjava.chatlist.ChatListActivity;
@@ -37,12 +39,16 @@ import com.xiaoxiao.testrxjava.databinding.ActivityMainBinding;
 import com.xiaoxiao.testrxjava.floatwindow.MockClickWindow;
 import com.xiaoxiao.testrxjava.floatwindow.permission.FloatWindowManager;
 import com.xiaoxiao.testrxjava.lifecycle.LifecycleActivity;
+import com.xiaoxiao.testrxjava.service.LocalService;
 import com.xiaoxiao.testrxjava.service.ServiceActivity;
 import com.xiaoxiao.testrxjava.simplePagerTab.PagerSlidingTabActivity;
 import com.xiaoxiao.testrxjava.testkeyboard.TestKeyBoardActivity;
 import com.xiaoxiao.utils.LogUtils;
 import com.xiaoxiao.utils.SystemBarUtil;
 import com.xiaoxiao.utils.Util;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -152,7 +158,8 @@ public class MainActivity extends AppCompatActivity {
                   @Override
                   public void onClick(View v) {
 //                      System.exit(0);
-                      Process.killProcess(Process.myPid());
+//                      Process.killProcess(Process.myPid());
+                      throw new NullPointerException();
                   }
               });
             } else if ("test".equals(pair.first)){
@@ -222,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
         Type type = testList.getClass().getGenericSuperclass();
         LogUtils.e(TAG,"list<String>:" + type);
         LogUtils.e(TAG,"list<String>:" + ((ParameterizedType)type).getActualTypeArguments()[0]);
-
+        testJsonObject();
     }
 
     @Deprecated
@@ -466,4 +473,20 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
+    private void testJsonObject(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("url","http://virgox.com/");
+            jsonObject.put("owner","caixiaoxiao");
+            LogUtils.e(TAG,"json:" + jsonObject.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Gson gson = new Gson();
+        JsonObject jsonObj = new JsonObject();
+        jsonObj.addProperty("url","http://virgox.com");
+        jsonObj.addProperty("owner","caixiaoxiao");
+        LogUtils.e(TAG,"json2:" + jsonObj.toString());
+    }
 }

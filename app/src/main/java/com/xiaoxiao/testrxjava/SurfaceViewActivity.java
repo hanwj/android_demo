@@ -12,7 +12,9 @@ public class SurfaceViewActivity extends FragmentActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MySurfaceView surfaceView = new MySurfaceView(this);
-        setContentView(surfaceView);
+
+        setContentView(R.layout.activity_surface);
+//        MySurfaceView surfaceView = new MySurfaceView(this);
+//        setContentView(surfaceView);
     }
 }

@@ -34,8 +34,8 @@ public class LocalService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e(TAG,"onStartCommand");
-        return super.onStartCommand(intent, flags, startId);
+        Log.e(TAG,"onStartCommand:startId=" + startId + ",intent=" + intent);
+        return Service.START_STICKY_COMPATIBILITY;
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.rxjava;
 
+import com.rxjava.reflect.BaseData;
+import com.rxjava.reflect.Student;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,6 +33,8 @@ public class Piped {
 //        System.out.println("end");
 
         testReverseListNode();
+
+        BaseData<Student> test = new BaseData<Student>(){};
     }
 
     private static void testReverseListNode(){
